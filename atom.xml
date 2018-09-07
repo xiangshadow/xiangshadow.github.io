@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>静觅</title>
+  
+  <subtitle>翔的个人网站</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.gaoxiangxiang.cn/"/>
+  <updated>2018-09-06T15:01:28.742Z</updated>
+  <id>http://www.gaoxiangxiang.cn/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>scrapy框架自定义pipeline</title>
+    <link href="http://www.gaoxiangxiang.cn/2018/09/06/test1/"/>
+    <id>http://www.gaoxiangxiang.cn/2018/09/06/test1/</id>
+    <published>2018-09-06T03:31:01.000Z</published>
+    <updated>2018-09-06T15:01:28.742Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h3 id="自定义pipeline"><a href="#自定义pipeline" class="headerlink" title="自定义pipeline"></a>自定义pipeline</h3><p>首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.</p><h3 id="演示保存为csv"><a href="#演示保存为csv" class="headerlink" title="演示保存为csv"></a>演示保存为csv</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class NovelSpiderCsvPipeline(object):</span><br><span class="line">        def open_spider(self,spider):</span><br><span class="line">            self.f=open(&apos;novel,csv&apos;,&apos;w&apos;,encoding=&apos;utf-8&apos;,newline=&apos;&apos;)</span><br><span class="line">            self.writer=csv.DictWriter(self.f,fieldnames=[&quot;novel_name&quot;,&quot;novel_info&quot;,&quot;novel_type&quot;,&quot;novel_author&quot;])</span><br><span class="line">            self.writer.writeheader()</span><br><span class="line">    </span><br><span class="line">        def process_item(self,item,spider):</span><br><span class="line">            item_dict=dict(item)</span><br><span class="line">            self.writer.writerow(item_dict)</span><br><span class="line">            return item</span><br><span class="line">    </span><br><span class="line">        def close_spider(self,spider):</span><br><span class="line">            self.f.close()</span><br></pre></td></tr></table></figure><p>然后在pipeline写好代码之后,不是就完成了,还有一些步骤要做.自定义的pipeline必须在settings中的ITEM_PIPELINES里面启用,否则该pipeline不会生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;&apos;NovelSpider.pipelines.NovelSpiderCsvPipeline&apos;: 301&#125;</span><br></pre></td></tr></table></figure></p><p>最后运行就可以了</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;自定义pipeline&quot;&gt;&lt;a href=&quot;#自定义pipeline&quot; class=&quot;headerlink&quot; title=&quot;自定义pipeline&quot;&gt;&lt;/a&gt;自定义pipeline&lt;/h3&gt;&lt;p&gt;首先,需要我们在pipeline
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>随感</title>
+    <link href="http://www.gaoxiangxiang.cn/2018/09/06/test/"/>
+    <id>http://www.gaoxiangxiang.cn/2018/09/06/test/</id>
+    <published>2018-09-06T01:40:28.000Z</published>
+    <updated>2018-09-06T15:01:27.592Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>欢迎光临个人网站</p><p>现在还在学习建设中,</p><p>先随便写一些东西测试一下</p><p>慢慢摸索中</p><p>我相信</p><p>以后会越来越好</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;欢迎光临个人网站&lt;/p&gt;
+&lt;p&gt;现在还在学习建设中,&lt;/p&gt;
+&lt;p&gt;先随便写一些东西测试一下&lt;/p&gt;
+&lt;p&gt;慢慢摸索中&lt;/p&gt;
+&lt;p&gt;我相信&lt;/p&gt;
+&lt;p&gt;以后会越来越好&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
