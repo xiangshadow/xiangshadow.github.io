@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[scrapy框架自定义pipeline]]></title>
+    <url>%2F2018%2F09%2F06%2Ftest1%2F</url>
+    <content type="text"><![CDATA[自定义pipeline首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法. 演示保存为csv12345678910111213class NovelSpiderCsvPipeline(object): def open_spider(self,spider): self.f=open('novel,csv','w',encoding='utf-8',newline='') self.writer=csv.DictWriter(self.f,fieldnames=["novel_name","novel_info","novel_type","novel_author"]) self.writer.writeheader() def process_item(self,item,spider): item_dict=dict(item) self.writer.writerow(item_dict) return item def close_spider(self,spider): self.f.close() 然后在pipeline写好代码之后,不是就完成了,还有一些步骤要做.自定义的pipeline必须在settings中的ITEM_PIPELINES里面启用,否则该pipeline不会生效1ITEM_PIPELINES = &#123;'NovelSpider.pipelines.NovelSpiderCsvPipeline': 301&#125; 最后运行就可以了]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[随感]]></title>
+    <url>%2F2018%2F09%2F06%2Ftest%2F</url>
+    <content type="text"><![CDATA[欢迎光临个人网站 现在还在学习建设中, 先随便写一些东西测试一下 慢慢摸索中 我相信 以后会越来越好]]></content>
+      <tags>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+</search>
