@@ -6,17 +6,17 @@
     <content type="text"><![CDATA[自定义pipeline首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法. 演示保存为csv12345678910111213class NovelSpiderCsvPipeline(object): def open_spider(self,spider): self.f=open('novel,csv','w',encoding='utf-8',newline='') self.writer=csv.DictWriter(self.f,fieldnames=["novel_name","novel_info","novel_type","novel_author"]) self.writer.writeheader() def process_item(self,item,spider): item_dict=dict(item) self.writer.writerow(item_dict) return item def close_spider(self,spider): self.f.close() 然后在pipeline写好代码之后,不是就完成了,还有一些步骤要做.自定义的pipeline必须在settings中的ITEM_PIPELINES里面启用,否则该pipeline不会生效1ITEM_PIPELINES = &#123;'NovelSpider.pipelines.NovelSpiderCsvPipeline': 301&#125; 最后运行就可以了]]></content>
   </entry>
   <entry>
-    <title><![CDATA[装了Chorme不用这个扩展,还不如去用IE6]]></title>
-    <url>%2F2018%2F09%2F06%2Fa%2F</url>
-    <content type="text"><![CDATA[这年头神器这个词已经烂大街了，但是，油猴的确配得上这个词，如果让我选择 Chrome 浏览器上只能保留一个扩展，那必须是油猴插件！这是一个可以提升上网幸福感的神级工具！说的这么邪乎？那我来告诉你这只油猴子都能干些什么吧。简单粗暴，直接上图！………..好吧,现在还不能上图…那就简单来讲讲吧,大致来说能干的事情非常的多,比如能看VIP视频、能下知网论文、磁链在线看、网盘免输密……等等,还有很多你想不到的功能.这么逆天的神器到底是个什么东西？它其实是一个脚本管理器，可以为你的浏览器加载各种各样有趣、实用、脑洞大开的脚本，对你正在访问的指定网站按照你的需求进行修改，从而让你的浏览器前所未有地强大。这款插件除了适用于 Chrome ,还支持 Microsoft Edge，Safari，Opera ，Firefox，以及使用 Chromium 内核的国产浏览器（比如QQ、猎豹、360、百度等），在 http://tampermonkey.net 这里你可以找到对应的油猴版本下载。我个人比较喜欢用Chrome,所以就以Chrome 为例讲解啦。 先安装油猴插件，最新版本号是4.4—— 1、可以科学上网的同学建议在线安装，去谷歌商店搜索 Tampermonkey 下载安装。 2、如果没有科学上网的条件，可以去 www.crx4chrome.com/crx/755/ 下载到本地，然后离线安装。顺便提一句，crx4chrome 这个站可以无需科学上网就能下载到最新版本的 Chrome 扩展，建议收藏。 安装成功之后，你会在 Chrome 的扩展栏看到一个黑色图标，证明油猴已经安装成功。 安装就这么简单，那这时候是不是就可以使用上边的那些神奇功能呢？ 还不行，安装好油猴插件相当于你手里有了一把枪，还要有子弹才能发挥枪的威力。 再送你一个丰富的弹药库，https://greasyfork.org/zh-CN/scripts，长枪短炮，应有尽有，刚才那些功能强大的脚本都来自于这个网站。 油猴上好玩好用的脚本实在是太多了，大家可以去自己慢慢淘，总有一款适合自己. ps(现在还不会上截图…)]]></content>
+    <title><![CDATA[随感]]></title>
+    <url>%2F2018%2F09%2F06%2Ftest%2F</url>
+    <content type="text"><![CDATA[欢迎光临个人网站 现在还在学习建设中, 先随便写一些东西测试一下 慢慢摸索中 我相信 以后会越来越好]]></content>
       <tags>
         <tag>notes</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[随感]]></title>
-    <url>%2F2018%2F09%2F06%2Ftest%2F</url>
-    <content type="text"><![CDATA[欢迎光临个人网站 现在还在学习建设中, 先随便写一些东西测试一下 慢慢摸索中 我相信 以后会越来越好]]></content>
+    <title><![CDATA[装了Chorme不用这个扩展,还不如去用IE6]]></title>
+    <url>%2F2018%2F09%2F06%2Fa%2F</url>
+    <content type="text"><![CDATA[这年头神器这个词已经烂大街了，但是，油猴的确配得上这个词，如果让我选择 Chrome 浏览器上只能保留一个扩展，那必须是油猴插件！这是一个可以提升上网幸福感的神级工具！说的这么邪乎？那我来告诉你这只油猴子都能干些什么吧。简单粗暴，直接上图！………..好吧,现在还不能上图…那就简单来讲讲吧,大致来说能干的事情非常的多,比如能看VIP视频、能下知网论文、磁链在线看、网盘免输密……等等,还有很多你想不到的功能.这么逆天的神器到底是个什么东西？它其实是一个脚本管理器，可以为你的浏览器加载各种各样有趣、实用、脑洞大开的脚本，对你正在访问的指定网站按照你的需求进行修改，从而让你的浏览器前所未有地强大。这款插件除了适用于 Chrome ,还支持 Microsoft Edge，Safari，Opera ，Firefox，以及使用 Chromium 内核的国产浏览器（比如QQ、猎豹、360、百度等），在 http://tampermonkey.net 这里你可以找到对应的油猴版本下载。我个人比较喜欢用Chrome,所以就以Chrome 为例讲解啦。 先安装油猴插件，最新版本号是4.4—— 1、可以科学上网的同学建议在线安装，去谷歌商店搜索 Tampermonkey 下载安装。 2、如果没有科学上网的条件，可以去 www.crx4chrome.com/crx/755/ 下载到本地，然后离线安装。顺便提一句，crx4chrome 这个站可以无需科学上网就能下载到最新版本的 Chrome 扩展，建议收藏。 安装成功之后，你会在 Chrome 的扩展栏看到一个黑色图标，证明油猴已经安装成功。 安装就这么简单，那这时候是不是就可以使用上边的那些神奇功能呢？ 还不行，安装好油猴插件相当于你手里有了一把枪，还要有子弹才能发挥枪的威力。 再送你一个丰富的弹药库，https://greasyfork.org/zh-CN/scripts，长枪短炮，应有尽有，刚才那些功能强大的脚本都来自于这个网站。 油猴上好玩好用的脚本实在是太多了，大家可以去自己慢慢淘，总有一款适合自己. ps(现在还不会上截图…)]]></content>
       <tags>
         <tag>notes</tag>
       </tags>
