@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.gaoxiangxiang.cn/"/>
-  <updated>2018-09-12T03:31:44.107Z</updated>
+  <updated>2018-09-12T06:52:38.967Z</updated>
   <id>http://www.gaoxiangxiang.cn/</id>
   
   <author>
@@ -17,40 +17,22 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>scrapy框架自定义pipeline</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/06/test1/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/06/test1/</id>
-    <published>2018-09-06T03:31:01.000Z</published>
-    <updated>2018-09-12T03:31:44.107Z</updated>
+    <title>proxy_pool</title>
+    <link href="http://www.gaoxiangxiang.cn/2018/09/12/proxy-pool/"/>
+    <id>http://www.gaoxiangxiang.cn/2018/09/12/proxy-pool/</id>
+    <published>2018-09-12T06:14:35.000Z</published>
+    <updated>2018-09-12T06:52:38.967Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="自定义pipeline"><a href="#自定义pipeline" class="headerlink" title="自定义pipeline"></a>自定义pipeline</h3><p>首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.</p><a id="more"></a><h3 id="演示保存为csv"><a href="#演示保存为csv" class="headerlink" title="演示保存为csv"></a>演示保存为csv</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NovelSpiderCsvPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(<span class="keyword">self</span>,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.f=open(<span class="string">'novel,csv'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>,newline=<span class="string">''</span>)</span><br><span class="line">            <span class="keyword">self</span>.writer=csv.DictWriter(<span class="keyword">self</span>.f,fieldnames=[<span class="string">"novel_name"</span>,<span class="string">"novel_info"</span>,<span class="string">"novel_type"</span>,<span class="string">"novel_author"</span>])</span><br><span class="line">            <span class="keyword">self</span>.writer.writeheader()</span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>,item,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            item_dict=dict(item)</span><br><span class="line">            <span class="keyword">self</span>.writer.writerow(item_dict)</span><br><span class="line">            <span class="keyword">return</span> item</span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(<span class="keyword">self</span>,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.f.close()</span><br></pre></td></tr></table></figure><p>然后在pipeline写好代码之后,不是就完成了,还有一些步骤要做.自定义的pipeline必须在settings中的ITEM_PIPELINES里面启用,否则该pipeline不会生效<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ITEM_PIPELINES</span> = &#123;<span class="string">'NovelSpider.pipelines.NovelSpiderCsvPipeline'</span>: <span class="number">301</span>&#125;</span><br></pre></td></tr></table></figure></p><p>最后运行就可以了</p>]]></content>
+    <content type="html"><![CDATA[<p class="description"></p><a id="more"></a><h2 id="代理IP"><a href="#代理IP" class="headerlink" title="代理IP:"></a>代理IP:</h2><p>1.免费的代理IP,可用IP少,时效性较短,大部分的代理IP可能.<br>2.收费的代理IP,讯代理.<br>3.爬取国外的网站,VPN代理服务器.</p><h2 id="pxory-pool"><a href="#pxory-pool" class="headerlink" title="pxory_pool:"></a>pxory_pool:</h2><p>1.它将国内的代理IP网站都进行了爬取;<br>2.代理IP爬取完毕之后,会进行金策,可用的IP会保存到数据库redis中;<br>3.会定期将数据库中的代理IP拿出来检测,失效的IP从数据库中删除;<br>4.支持扩展</p><p>附上proxy_pool的github链接:<a href="https://github.com/jhao104/proxy_pool" target="_blank" rel="noopener">https://github.com/jhao104/proxy_pool</a></p><hr>]]></content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;自定义pipeline&quot;&gt;&lt;a href=&quot;#自定义pipeline&quot; class=&quot;headerlink&quot; title=&quot;自定义pipeline&quot;&gt;&lt;/a&gt;自定义pipeline&lt;/h3&gt;&lt;p&gt;首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.&lt;/p&gt;
+      代理服务器（ProxyServer）是一种重要的服务器安全功能，它的工作主要在开放系统互联 (OSI) 模型的会话层，从而起到防火墙的作用。代理服务器大多被用来连接INTERNET（国际互联网）和 Local Area Network（局域网）。
     
     </summary>
     
     
-  </entry>
-  
-  <entry>
-    <title>随感</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/06/test/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/06/test/</id>
-    <published>2018-09-06T01:40:28.000Z</published>
-    <updated>2018-09-12T03:31:27.691Z</updated>
-    
-    <content type="html"><![CDATA[<p>欢迎光临个人网站</p><a id="more"></a><p>现在还在学习建设中,</p><p>先随便写一些东西测试一下</p><p>慢慢摸索中</p><p>我相信</p><p>以后会越来越好</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;欢迎光临个人网站&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="notes" scheme="http://www.gaoxiangxiang.cn/tags/notes/"/>
+      <category term="代理" scheme="http://www.gaoxiangxiang.cn/tags/%E4%BB%A3%E7%90%86/"/>
     
   </entry>
   
@@ -66,6 +48,44 @@
     <summary type="html">
     
       &lt;p&gt;这年头神器这个词已经烂大街了，但是，油猴的确配得上这个词，如果让我选择 Chrome 浏览器上只能保留一个扩展，那必须是油猴插件！这是一个可以提升上网幸福感的神级工具！&lt;br&gt;说的这么邪乎？那我来告诉你这只油猴子都能干些什么吧。简单粗暴，直接上图！&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="notes" scheme="http://www.gaoxiangxiang.cn/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>scrapy框架自定义pipeline</title>
+    <link href="http://www.gaoxiangxiang.cn/2018/09/04/test1/"/>
+    <id>http://www.gaoxiangxiang.cn/2018/09/04/test1/</id>
+    <published>2018-09-04T03:31:01.000Z</published>
+    <updated>2018-09-12T03:35:17.860Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="自定义pipeline"><a href="#自定义pipeline" class="headerlink" title="自定义pipeline"></a>自定义pipeline</h3><p>首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.</p><a id="more"></a><h3 id="演示保存为csv"><a href="#演示保存为csv" class="headerlink" title="演示保存为csv"></a>演示保存为csv</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NovelSpiderCsvPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(<span class="keyword">self</span>,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.f=open(<span class="string">'novel,csv'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>,newline=<span class="string">''</span>)</span><br><span class="line">            <span class="keyword">self</span>.writer=csv.DictWriter(<span class="keyword">self</span>.f,fieldnames=[<span class="string">"novel_name"</span>,<span class="string">"novel_info"</span>,<span class="string">"novel_type"</span>,<span class="string">"novel_author"</span>])</span><br><span class="line">            <span class="keyword">self</span>.writer.writeheader()</span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>,item,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            item_dict=dict(item)</span><br><span class="line">            <span class="keyword">self</span>.writer.writerow(item_dict)</span><br><span class="line">            <span class="keyword">return</span> item</span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(<span class="keyword">self</span>,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.f.close()</span><br></pre></td></tr></table></figure><p>然后在pipeline写好代码之后,不是就完成了,还有一些步骤要做.自定义的pipeline必须在settings中的ITEM_PIPELINES里面启用,否则该pipeline不会生效<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ITEM_PIPELINES</span> = &#123;<span class="string">'NovelSpider.pipelines.NovelSpiderCsvPipeline'</span>: <span class="number">301</span>&#125;</span><br></pre></td></tr></table></figure></p><p>最后运行就可以了</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;自定义pipeline&quot;&gt;&lt;a href=&quot;#自定义pipeline&quot; class=&quot;headerlink&quot; title=&quot;自定义pipeline&quot;&gt;&lt;/a&gt;自定义pipeline&lt;/h3&gt;&lt;p&gt;首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>随感</title>
+    <link href="http://www.gaoxiangxiang.cn/2018/09/03/test/"/>
+    <id>http://www.gaoxiangxiang.cn/2018/09/03/test/</id>
+    <published>2018-09-03T01:40:28.000Z</published>
+    <updated>2018-09-12T03:35:02.149Z</updated>
+    
+    <content type="html"><![CDATA[<p>欢迎光临个人网站</p><a id="more"></a><p>现在还在学习建设中,</p><p>先随便写一些东西测试一下</p><p>慢慢摸索中</p><p>我相信</p><p>以后会越来越好</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;欢迎光临个人网站&lt;/p&gt;
     
     </summary>
     

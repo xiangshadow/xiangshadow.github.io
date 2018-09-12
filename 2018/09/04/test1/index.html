@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="记录生活的瞬间，分享学习的心得，感悟生活，留住感动，静静寻觅生活的美好">
+<meta name="description" content="自定义pipeline首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.">
 <meta name="keywords" content="翔,静觅,生活,技术,博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://www.gaoxiangxiang.cn/tags/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scrapy框架自定义pipeline">
+<meta property="og:url" content="http://www.gaoxiangxiang.cn/2018/09/04/test1/index.html">
 <meta property="og:site_name" content="&amp;ensp;&amp;emsp;静觅">
-<meta property="og:description" content="记录生活的瞬间，分享学习的心得，感悟生活，留住感动，静静寻觅生活的美好">
+<meta property="og:description" content="自定义pipeline首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-11T02:28:42.351Z">
+<meta property="og:updated_time" content="2018-09-12T03:35:17.860Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="记录生活的瞬间，分享学习的心得，感悟生活，留住感动，静静寻觅生活的美好">
+<meta name="twitter:title" content="scrapy框架自定义pipeline">
+<meta name="twitter:description" content="自定义pipeline首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.">
 
 
 
@@ -171,13 +171,13 @@
 
 
 
-  <link rel="canonical" href="http://www.gaoxiangxiang.cn/tags/"/>
+  <link rel="canonical" href="http://www.gaoxiangxiang.cn/2018/09/04/test1/"/>
 
 
 
 
 
-  <title>tags | &ensp;&emsp;静觅</title>
+  <title>scrapy框架自定义pipeline | &ensp;&emsp;静觅</title>
   
 
 
@@ -346,40 +346,190 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoxiangxiang.cn/2018/09/04/test1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="翔">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="&ensp;&emsp;静觅">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 2 个标签
+          <h1 class="post-title" itemprop="name headline">scrapy框架自定义pipeline</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T11:31:01+08:00">
+                2018-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/04/test1/" class="leancloud_visitors" data-flag-title="scrapy框架自定义pipeline">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
             </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/notes/" style="font-size: 30px; color: #111">notes</a> <a href="/tags/代理/" style="font-size: 12px; color: #ccc">代理</a>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h3 id="自定义pipeline"><a href="#自定义pipeline" class="headerlink" title="自定义pipeline"></a>自定义pipeline</h3><p>首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.</p>
+<a id="more"></a>
+<h3 id="演示保存为csv"><a href="#演示保存为csv" class="headerlink" title="演示保存为csv"></a>演示保存为csv</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NovelSpiderCsvPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(<span class="keyword">self</span>,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.f=open(<span class="string">'novel,csv'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>,newline=<span class="string">''</span>)</span><br><span class="line">            <span class="keyword">self</span>.writer=csv.DictWriter(<span class="keyword">self</span>.f,fieldnames=[<span class="string">"novel_name"</span>,<span class="string">"novel_info"</span>,<span class="string">"novel_type"</span>,<span class="string">"novel_author"</span>])</span><br><span class="line">            <span class="keyword">self</span>.writer.writeheader()</span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>,item,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            item_dict=dict(item)</span><br><span class="line">            <span class="keyword">self</span>.writer.writerow(item_dict)</span><br><span class="line">            <span class="keyword">return</span> item</span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(<span class="keyword">self</span>,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.f.close()</span><br></pre></td></tr></table></figure>
+<p>然后在pipeline写好代码之后,不是就完成了,还有一些步骤要做.自定义的pipeline必须在settings中的ITEM_PIPELINES里面启用,否则该pipeline不会生效<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ITEM_PIPELINES</span> = &#123;<span class="string">'NovelSpider.pipelines.NovelSpiderCsvPipeline'</span>: <span class="number">301</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后运行就可以了</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/03/test/" rel="next" title="随感">
+                <i class="fa fa-chevron-left"></i> 随感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/06/a/" rel="prev" title="装了Chorme不用这个扩展,还不如去用IE6">
+                装了Chorme不用这个扩展,还不如去用IE6 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -414,8 +564,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -532,6 +691,22 @@ show_date_time();
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义pipeline"><span class="nav-number">1.</span> <span class="nav-text">自定义pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#演示保存为csv"><span class="nav-number">2.</span> <span class="nav-text">演示保存为csv</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1164,6 +1339,23 @@ show_date_time();
 
   
   
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: ,
+    el: 'wpac-rating',
+    color: 'f79533'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
 
   
 
