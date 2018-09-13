@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.gaoxiangxiang.cn/"/>
-  <updated>2018-09-12T06:52:38.967Z</updated>
+  <updated>2018-09-13T00:54:50.165Z</updated>
   <id>http://www.gaoxiangxiang.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python虚拟环境的安装和配置(windows)</title>
+    <link href="http://www.gaoxiangxiang.cn/2018/09/12/xunihuanjing/"/>
+    <id>http://www.gaoxiangxiang.cn/2018/09/12/xunihuanjing/</id>
+    <published>2018-09-12T14:46:37.000Z</published>
+    <updated>2018-09-13T00:54:50.165Z</updated>
+    
+    <content type="html"><![CDATA[<p class="description"></p><a id="more"></a><h1 id="1-下载virtualenvwrapper-win-包"><a href="#1-下载virtualenvwrapper-win-包" class="headerlink" title="1.下载virtualenvwrapper-win 包"></a>1.下载virtualenvwrapper-win 包</h1><p>在黑窗中输入pip install virtualenvwrapper-win<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">C:</span>\Users\Administrator&gt;pip install virtualenvwrapper-win</span><br><span class="line">Requirement already <span class="symbol">satisfied:</span> virtualenvwrapper-win in <span class="symbol">c:</span>\programdata\anaconda3\<span class="class"><span class="keyword">lib</span>\<span class="title">site</span>-<span class="title">packages</span> (1.2.5)</span></span><br><span class="line">Requirement already <span class="symbol">satisfied:</span> virtualenv in <span class="symbol">c:</span>\programdata\anaconda3\<span class="class"><span class="keyword">lib</span>\<span class="title">site</span>-<span class="title">packages</span> (<span class="title">from</span> <span class="title">virtualenvwrapper</span>-<span class="title">win</span>) (16.0.0)</span></span><br></pre></td></tr></table></figure></p><h1 id="2-输入workon命令查看是否可用"><a href="#2-输入workon命令查看是否可用" class="headerlink" title="2.输入workon命令查看是否可用"></a>2.输入workon命令查看是否可用</h1><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pass a name to activate one of the following virtualenvs:</span><br><span class="line">==============================================================================</span><br><span class="line">找不到文件</span><br></pre></td></tr></table></figure><h1 id="3-使用virtualenvwrapper创建虚拟环境"><a href="#3-使用virtualenvwrapper创建虚拟环境" class="headerlink" title="3.使用virtualenvwrapper创建虚拟环境"></a>3.使用virtualenvwrapper创建虚拟环境</h1><p>在黑窗中输入mkvirtualenv py3scrapy  (py3scrapy为虚拟环境名)<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:<span class="symbol">\U</span>sers<span class="symbol">\A</span>dministrator&gt;mkvirtualenv py4scrapy</span><br><span class="line">Using base prefix 'c:<span class="symbol">\\</span>programdata<span class="symbol">\\</span>anaconda3'</span><br><span class="line">New python executable in D:<span class="symbol">\E</span>nvs<span class="symbol">\p</span>y4scrapy<span class="symbol">\S</span>cripts<span class="symbol">\p</span>ython.exe</span><br><span class="line">Installing setuptools, pip, wheel...done.</span><br></pre></td></tr></table></figure></p><p>默认放在C:\Users\Administrator\Envs目录中<br>可以修改存放的路径：<br>找到系统环境变量，编辑系统变量,添加WORKON_HOME为变量名,D:\ENVS为变量值<br>运行workon，目录中没有虚拟环境了，因为默认目录已经改变，可以将之前的虚拟环境拷贝到新目录下</p><p>新建一个虚拟环境，完成后自动进入该虚拟环境</p><p>以后再进入虚拟环境，就不需要记住安装路径了直接使用以下命令：<br>列出虚拟环境列表：workon<br>新建虚拟环境：mkvirtualenv [虚拟环境名称]<br>启动/切换虚拟环境：workon [虚拟环境名称]<br>离开虚拟环境：deactivate</p><hr>]]></content>
+    
+    <summary type="html">
+    
+      “虚拟环境” 来源于 ShadoWin 虚拟软件所实现的功能。ShadoWin 的工作原理是以专利的实时动态程序行为修饰与模拟算法，直接利用本机的 OS，模拟出自带与本机相容 OS 的虚拟机（Vista 下可模拟 Vista、XP，Windows 7 下则可模拟 Windows 7、Vista、XP），也称为 “虚拟环境”。
+    
+    </summary>
+    
+    
+      <category term="学习心得" scheme="http://www.gaoxiangxiang.cn/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
+    
+  </entry>
   
   <entry>
     <title>proxy_pool</title>
