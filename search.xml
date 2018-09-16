@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Scrapy搭建爬虫项目]]></title>
+    <url>%2F2018%2F09%2F13%2Fscrapydajianxiangmu%2F</url>
+    <content type="text"><![CDATA[1.输入workon命令，进入已经设置好的一个虚拟环境。 2.安装scrapy框架:pip install scrapy 3.遇到如下报错信息，进入https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy 下载Twisted库的wheel文件]]></content>
+      <tags>
+        <tag>学习心得</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Python虚拟环境的安装和配置(windows)]]></title>
     <url>%2F2018%2F09%2F12%2Fxunihuanjing%2F</url>
     <content type="text"><![CDATA[1.下载virtualenvwrapper-win 包在黑窗中输入pip install virtualenvwrapper-win123C:\Users\Administrator&gt;pip install virtualenvwrapper-winRequirement already satisfied: virtualenvwrapper-win in c:\programdata\anaconda3\lib\site-packages (1.2.5)Requirement already satisfied: virtualenv in c:\programdata\anaconda3\lib\site-packages (from virtualenvwrapper-win) (16.0.0) 2.输入workon命令查看是否可用123Pass a name to activate one of the following virtualenvs:==============================================================================找不到文件 3.使用virtualenvwrapper创建虚拟环境在黑窗中输入mkvirtualenv py3scrapy (py3scrapy为虚拟环境名)1234C:\Users\Administrator&gt;mkvirtualenv py4scrapyUsing base prefix 'c:\\programdata\\anaconda3'New python executable in D:\Envs\py4scrapy\Scripts\python.exeInstalling setuptools, pip, wheel...done. 默认放在C:\Users\Administrator\Envs目录中可以修改存放的路径：找到系统环境变量，编辑系统变量,添加WORKON_HOME为变量名,D:\ENVS为变量值运行workon，目录中没有虚拟环境了，因为默认目录已经改变，可以将之前的虚拟环境拷贝到新目录下 新建一个虚拟环境，完成后自动进入该虚拟环境 以后再进入虚拟环境，就不需要记住安装路径了直接使用以下命令：列出虚拟环境列表：workon新建虚拟环境：mkvirtualenv [虚拟环境名称]启动/切换虚拟环境：workon [虚拟环境名称]离开虚拟环境：deactivate]]></content>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.gaoxiangxiang.cn/"/>
-  <updated>2018-09-13T00:54:50.165Z</updated>
+  <updated>2018-09-13T01:17:59.492Z</updated>
   <id>http://www.gaoxiangxiang.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Scrapy搭建爬虫项目</title>
+    <link href="http://www.gaoxiangxiang.cn/2018/09/13/scrapydajianxiangmu/"/>
+    <id>http://www.gaoxiangxiang.cn/2018/09/13/scrapydajianxiangmu/</id>
+    <published>2018-09-13T01:07:16.000Z</published>
+    <updated>2018-09-13T01:17:59.492Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.输入workon命令，进入已经设置好的一个虚拟环境。</p><p>2.安装scrapy框架:pip install scrapy</p><p>3.遇到如下报错信息，进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy" target="_blank" rel="noopener">https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy</a> 下载Twisted库的wheel文件<img src="/2018/09/13/scrapydajianxiangmu/图片1.png" alt="你想输入的替代文字"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1.输入workon命令，进入已经设置好的一个虚拟环境。&lt;/p&gt;
+&lt;p&gt;2.安装scrapy框架:pip install scrapy&lt;/p&gt;
+&lt;p&gt;3.遇到如下报错信息，进入&lt;a href=&quot;https://www.lfd.uci.edu/~gohlke/pythonli
+      
+    
+    </summary>
+    
+    
+      <category term="学习心得" scheme="http://www.gaoxiangxiang.cn/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
+    
+  </entry>
   
   <entry>
     <title>Python虚拟环境的安装和配置(windows)</title>
