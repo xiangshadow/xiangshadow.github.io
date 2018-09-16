@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Scrapy搭建爬虫项目]]></title>
     <url>%2F2018%2F09%2F13%2Fscrapydajianxiangmu%2F</url>
-    <content type="text"><![CDATA[1.输入workon命令，进入已经设置好的一个虚拟环境。 2.安装scrapy框架:pip install scrapy 3.遇到如下报错信息，进入https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy 下载Twisted库的wheel文件]]></content>
+    <content type="text"><![CDATA[1.输入workon命令，进入已经设置好的一个虚拟环境。 2.安装scrapy框架:pip install scrapy 3.遇到如下报错信息，进入https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy 下载Twisted库的wheel文件 4.安装Twisted 5.执行scrapy startproject 项目名称 5.using template director：是scrapy内置的一个框架模板 6.进入到项目文件夹中 7.爬虫项目文件介绍 8.通过cmd爬虫项目命令：scrapy crawl baidu(爬虫名称) 9.执行以上命令会报错只需要安装pip install pypiwin32即可解决然后再执行命令：：scrapy crawl baidu(爬虫名称)]]></content>
       <tags>
         <tag>学习心得</tag>
       </tags>

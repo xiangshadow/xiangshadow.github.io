@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.gaoxiangxiang.cn/"/>
-  <updated>2018-09-13T01:17:59.492Z</updated>
+  <updated>2018-09-16T09:19:54.016Z</updated>
   <id>http://www.gaoxiangxiang.cn/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://www.gaoxiangxiang.cn/2018/09/13/scrapydajianxiangmu/"/>
     <id>http://www.gaoxiangxiang.cn/2018/09/13/scrapydajianxiangmu/</id>
     <published>2018-09-13T01:07:16.000Z</published>
-    <updated>2018-09-13T01:17:59.492Z</updated>
+    <updated>2018-09-16T09:19:54.016Z</updated>
     
-    <content type="html"><![CDATA[<p>1.输入workon命令，进入已经设置好的一个虚拟环境。</p><p>2.安装scrapy框架:pip install scrapy</p><p>3.遇到如下报错信息，进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy" target="_blank" rel="noopener">https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy</a> 下载Twisted库的wheel文件<img src="/2018/09/13/scrapydajianxiangmu/图片1.png" alt="你想输入的替代文字"></p>]]></content>
+    <content type="html"><![CDATA[<p>1.输入workon命令，进入已经设置好的一个虚拟环境。</p><p>2.安装scrapy框架:pip install scrapy</p><p>3.遇到如下报错信息，进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy" target="_blank" rel="noopener">https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy</a> 下载Twisted库的wheel文件<img src="/2018/09/13/scrapydajianxiangmu/图片1.png" alt="你想输入的替代文字"></p><p>4.安装Twisted</p><p>5.执行scrapy startproject 项目名称<br><img src="/2018/09/13/scrapydajianxiangmu/图片2.png" alt="你想输入的替代文字"></p><p>5.using template director：是scrapy内置的一个框架模板<br><img src="/2018/09/13/scrapydajianxiangmu/图片3.png" alt="你想输入的替代文字"></p><p>6.进入到项目文件夹中<br><img src="/2018/09/13/scrapydajianxiangmu/图片4.png" alt="你想输入的替代文字"></p><p>7.爬虫项目文件介绍<br><img src="/2018/09/13/scrapydajianxiangmu/图片5.png" alt="你想输入的替代文字"></p><p>8.通过cmd爬虫项目<br>命令：scrapy  crawl  baidu(爬虫名称)</p><p>9.执行以上命令会报错<br><img src="/2018/09/13/scrapydajianxiangmu/图片6.png" alt="你想输入的替代文字"><br>只需要安装pip install pypiwin32即可解决<br>然后再执行命令：：scrapy  crawl  baidu(爬虫名称)</p>]]></content>
     
     <summary type="html">
     
