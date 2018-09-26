@@ -117,7 +117,7 @@
 
 
 
-  <meta name="keywords" content="reuixiy,哲学,Hexo,博客,Coldplay" />
+  <meta name="keywords" content="技术分享," />
 
 
 
@@ -130,17 +130,18 @@
 
 
 
-<meta name="description" content="记录生活的瞬间，分享学习的心得，感悟生活，留住感动，静静寻觅生活的美好">
-<meta name="keywords" content="翔,静觅,生活,技术,博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="&amp;ensp;&amp;emsp;静觅">
-<meta property="og:url" content="http://www.gaoxiangxiang.cn/index.html">
+<meta name="description" content="分布式爬虫：将一个项目拷贝到多台电脑上，同时爬取数据。 1. 必须保证所有电脑上的代码是相同的配置。 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。 3. 同时将所有的爬虫项目运行起来。 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。 q = queue()url = q.get() # 如果队列是空的，那么 get() 方法会">
+<meta name="keywords" content="技术分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式爬虫的配置">
+<meta property="og:url" content="http://www.gaoxiangxiang.cn/2018/09/26/fenbushi/index.html">
 <meta property="og:site_name" content="&amp;ensp;&amp;emsp;静觅">
-<meta property="og:description" content="记录生活的瞬间，分享学习的心得，感悟生活，留住感动，静静寻觅生活的美好">
+<meta property="og:description" content="分布式爬虫：将一个项目拷贝到多台电脑上，同时爬取数据。 1. 必须保证所有电脑上的代码是相同的配置。 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。 3. 同时将所有的爬虫项目运行起来。 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。 q = queue()url = q.get() # 如果队列是空的，那么 get() 方法会">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-26T11:58:31.120Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="&amp;ensp;&amp;emsp;静觅">
-<meta name="twitter:description" content="记录生活的瞬间，分享学习的心得，感悟生活，留住感动，静静寻觅生活的美好">
+<meta name="twitter:title" content="分布式爬虫的配置">
+<meta name="twitter:description" content="分布式爬虫：将一个项目拷贝到多台电脑上，同时爬取数据。 1. 必须保证所有电脑上的代码是相同的配置。 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。 3. 同时将所有的爬虫项目运行起来。 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。 q = queue()url = q.get() # 如果队列是空的，那么 get() 方法会">
 
 
 
@@ -170,13 +171,13 @@
 
 
 
-  <link rel="canonical" href="http://www.gaoxiangxiang.cn/"/>
+  <link rel="canonical" href="http://www.gaoxiangxiang.cn/2018/09/26/fenbushi/"/>
 
 
 
 
 
-  <title>&ensp;&emsp;静觅</title>
+  <title>分布式爬虫的配置 | &ensp;&emsp;静觅</title>
   
 
 
@@ -195,8 +196,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -333,9 +333,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -365,9 +365,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/26/fenbushi/" itemprop="url">分布式爬虫的配置</a></h1>
+          <h1 class="post-title" itemprop="name headline">分布式爬虫的配置</h1>
         
 
         <div class="post-meta">
@@ -449,25 +447,104 @@
       
 
       
-        
-          <h2 id="分布式爬虫："><a href="#分布式爬虫：" class="headerlink" title="分布式爬虫："></a>分布式爬虫：</h2><pre><code>将一个项目拷贝到多台电脑上，同时爬取数据。
+        <h2 id="分布式爬虫："><a href="#分布式爬虫：" class="headerlink" title="分布式爬虫："></a>分布式爬虫：</h2><pre><code>将一个项目拷贝到多台电脑上，同时爬取数据。
 1. 必须保证所有电脑上的代码是相同的配置。
 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。
 3. 同时将所有的爬虫项目运行起来。
 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。
 </code></pre><p>q = queue()<br>url = q.get() # 如果队列是空的，那么 get() 方法会一直阻塞，直到能取到 url，才会继续向下执行。</p>
+<a id="more"></a>
+<h2 id="单机爬虫："><a href="#单机爬虫：" class="headerlink" title="单机爬虫："></a>单机爬虫：</h2><p>一台电脑运行一个项目。去重采用了 set() 和 queue()，但是这两个都是在内存中存在的。<br>1 &gt; 其他电脑是无法获取另外一台电脑内存中的数据的。<br>2 &gt; 程序终止，内存消失。</p>
+<h2 id="分布式问题："><a href="#分布式问题：" class="headerlink" title="分布式问题："></a>分布式问题：</h2><pre><code>1. 多台电脑如何统一的对 URL 进行去重？
+2. 多台电脑之间如何共用相同的队列？多台电脑获取的 request，如何在多台电脑之间进行同步？
+3. 多台电脑运行同一个爬虫项目，如果有机器爬虫意外终止，如何保证可以继续从队列中获取新的 request，而不是从头开始爬取？
+</code></pre><p>前两个问题可以基于 Redis 实现。相当于将 set() 和 queue() 从 scrapy 框架中抽离出来，将其保存在一个公共的平台中（Redis）。<br>第三个问题：scrapy_redis 已经实现了，重启爬虫不会从头开始重新爬取，而是会继续从队列中获取 request。不用担心爬虫意外终止。</p>
+<h2 id="scrapy-redis-第三方库实现分布的部署："><a href="#scrapy-redis-第三方库实现分布的部署：" class="headerlink" title="scrapy_redis 第三方库实现分布的部署："></a>scrapy_redis 第三方库实现分布的部署：</h2><p>分布式爬虫：只需要在众多电脑中，选择其中一台开启 redis 服务，目的就是在 redis 中创建公用的 queue 和公用的 set，然后剩余电脑只需要连接 redis 服务即可，剩余电脑不需要开启 redis-server 服务。</p>
+<h2 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h2><p>1 &gt; 在虚拟环境中安装 pip install redis<br>2 &gt; 去 github 上搜索 scrapy_redis 库，解压，保存到项目根目录下。根据提供的用例，配置我们的项目，大致三部分：<br>    1.settings.py 文件；</p>
+<pre><code># 配置 scrapy_redis 第三方库 # 所有电脑配置调度器，这个调度器重写了 scrapy 框架内置的调度器。
 
-         
+SCHEDULER = &quot;scrapy_redis.scheduler.Scheduler&quot;
 
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/26/fenbushi/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+# 所有电脑配置去重， 这个也是重写了 scrapy 内置的去重。
+
+DUPEFILTER_CLASS = &quot;scrapy_redis.dupefilter.RFPDupeFilter&quot;
+</code></pre><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"># 所有电脑配置redis的连接地址，设置局域网IP或者公网IP，保证所有电脑都能连接到同一个redis。6379</span>是redis的默认端口号。</span><br><span class="line"><span class="attr"># redis数据库默认只允许本地连接localhost，如需配置远程连接，需要修改redis的配置文件。修改完成以后，要重启redis-server服务。</span></span><br><span class="line"><span class="attr"># 1</span>. <span class="comment">(A B C)</span> 如果用的是局域网部署的分布式，选择其中一台电脑<span class="comment">(A)</span>开启redis-server服务，REDIS_URL就配置成A电脑的局域网IP地址。如果B电脑开启redis-server-&gt;REDIS_URL B电脑的IP地址。</span><br><span class="line"><span class="attr"># 2</span>. <span class="comment">(A B C)</span> 如果用的是公网IP<span class="comment">(阿里云)</span>，那么所有电脑都不需要开启redis-server服务，只需要将REDIS_URL的主机地址配置成公网IP即可。</span><br></pre></td></tr></table></figure>
+<pre><code># myroot: 自定义的 redis 链接（可不写）。IP：开启 redis-server 服务的这台电脑的 IP
+REDIS_URL = &apos;redis://myroot:@192.168.40.217:6379&apos;
+# item_pipelines可以配置，也可以不用配置。如果配置的话：所有下载的item，除了会被保存在数据库MySQL中，还会被保存在Redis数据库中。没有配置：所有的item不会存储在Redis数据库中
+
+ITEM_PIPELINES = {
+    &apos;scrapy_redis.pipelines.RedisPipeline&apos;: 300
+}  
+</code></pre><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置HOST为局域网IP，或者公网IPMYSQL_HOST = <span class="string">'192.168.70.246'</span>MYSQL_DB = <span class="string">'jobbole'</span>MYSQL_USER = <span class="string">'myroot'</span>MYSQL_PASSWD = <span class="string">'123456'</span>MYSQL_CHARSET = <span class="string">'utf8'</span>MYSQL_PORT = 3306 </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置scrapy_redis第三方库<span class="comment"># 所有电脑配置调度器，这个调度器重写了scrapy框架内置的调度器。</span></span></span><br><span class="line">SCHEDULER = "scrapy_redis.scheduler.Scheduler"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 所有电脑配置去重， 这个也是重写了scrapy内置的去重。</span></span><br><span class="line">DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 所有电脑配置redis的连接地址，设置局域网IP或者公网IP，保证所有电脑都能连接到同一个redis。6379是redis的默认端口号。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> redis数据库默认只允许本地连接localhost，如需配置远程连接，需要修改redis的配置文件。修改完成以后，要重启redis-server服务。 </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1. (A B C) 如果用的是局域网部署的分布式，选择其中一台电脑(A)开启redis-server服务，REDIS_URL就配置成A电脑的局域网IP地址。如果B电脑开启redis-server-&gt;REDIS_URL B电脑的IP地址。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. (A B C) 如果用的是公网IP(阿里云)，那么所有电脑都不需要开启redis-server服务，只需要将REDIS_URL的主机地址配置成公网IP即可。 REDIS_URL = <span class="string">'redis://@192.168.70.246:6379'</span>  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以配置，也可以不用配置。如果配置的话：所有下载的item，除了会被保存在数据库MySQL中，还会被保存在Redis数据库中。没有配置：所有的item不会存储在Redis数据库中。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ITEM_PIPELINES = &#123;<span class="comment">#     'scrapy_redis.pipelines.RedisPipeline': 300# &#125;</span></span></span><br></pre></td></tr></table></figure>
+<pre><code>2.jobbole.py 文件；
+from scrapy_redis.spiders import RedisSpider
+class JobboleSpider(RedisSpider):
+    name = &apos;jobbole&apos;
+    allowed_domains = [&apos;jobbole.com&apos;]
+    # start_urls = [&apos;http://blog.jobbole.com/all-posts/&apos;]
+
+# 添加键
+    redis_key = &apos;jobbole:start_urls&apos;
+</code></pre><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy,re</span><br><span class="line"><span class="keyword">from</span> ..items <span class="keyword">import</span> JobbolespiderItem</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"><span class="keyword">from</span> scrapy.loader <span class="keyword">import</span> ItemLoader</span><br><span class="line"><span class="keyword">from</span> scrapy_redis.spiders <span class="keyword">import</span> RedisSpider</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> BoleSpider(RedisSpider):</span><br><span class="line">    name = <span class="string">'bole'</span></span><br><span class="line">    allowed_domains = [<span class="string">'jobbole.com'</span>]</span><br><span class="line">    # start_urls = [<span class="string">'http://blog.jobbole.com/all-posts/'</span>]</span><br><span class="line"></span><br><span class="line">    # 分布式就不需要再设置起始的url，需要通过redis进行添加起始的url。起始的url添加到哪去了？被添加到了公共队列queue中。让多台机器中的其中一台从公共的reids队列queue中，获取起始的url，并对这个起始的url进行请求和解析，获取更多的url，然后将所有的url构造成Request，还放入公共队列queue中，让其他机器获取这些Request请求。</span><br><span class="line"></span><br><span class="line">    redis_key = <span class="string">'jobbole:start_urls'</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-有关数据库部分；"><a href="#3-有关数据库部分；" class="headerlink" title="3. 有关数据库部分；"></a>3. 有关数据库部分；</h2><pre><code>首先要把 MySQL 添加到环境变量中
+第一步：通过 mysql -uroot -p 登录 MySQL 服务。
+第二步：通过 grant all privileges on *.*  to &apos;myroot&apos;@&apos;%&apos; identified by &apos;123456&apos;;(注意一定要带上分号)。
+# *.* 表示所有数据库中的所有表，都能够被远程连接
+# &apos;%&apos; 表示任意 IP 都可以进行链接
+# &apos;myroot&apos; 具有远程链接权限的用户名，自定义。之后就使用这个 User 进行链接数据库
+mysql-&gt;grant all privileges on *.*  to &apos;myroot&apos;@&apos;%&apos; identified by &apos;123456&apos;;  回车即可
+第三步：再去修改爬虫项目（settings.py）中有关数据库的配置。
+
+登录 MySQL 服务
+mysql -uroot -p 
+创建远程连接新用户：
+create user &quot;myuser&quot;@&quot;%&quot; identified by &quot;123456&quot;;
+给用户分配所有数据库的访问权限：
+GRANT ALL privileges ON *.* TO &apos;user&apos;@&apos;%&apos;;
+
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment"># 配置数据库</span></span><br><span class="line"><span class="attr">MYSQL_HOST</span> = <span class="string">'192.168.53.64'</span></span><br><span class="line"><span class="attr">MYSQL_DB</span> = <span class="string">'jobbole'</span></span><br><span class="line"><span class="attr">MYSQL_USER</span> = <span class="string">'myuser'</span></span><br><span class="line"><span class="attr">MYSQL_PASSWD</span> = <span class="string">'123456'</span></span><br><span class="line"><span class="attr">MYSQL_PORT</span> = <span class="number">3306</span></span><br><span class="line"><span class="attr">MYSQL_CHARSET</span> = <span class="string">'utf8'</span></span><br></pre></td></tr></table></figure>
+
+然后在数据库中新建连接，连接名随便起，主机名或 IP 地址要与 settings.py 中配置的一致，即开启 redis-server 服务的这台电脑      的 IP，用户名和密码与 settings.py 一致。
+
+3 &gt; 将配置好的项目，拷贝到不同的机器中；
+4 &gt; 选择其中一台机器，开启 redis-server 服务，并修改 redis.windows.conf 配置文件：
+
+ #配置远程 IP 地址，供其他的电脑进行连接 redis
+bind: (当前电脑 IP) 192.168.40.217
+
+ # 关闭 redis 保护模式protected-mode: no
+
+ 在修改redis.windows.conf配置文件以后，必须将 &quot;Redis&quot; 服务从计算机-管理中删除，然后重新根据修改后redis.windows.conf配置文件进行注册新的服务，这样修改的配置文件才生效。
+ 删除服务:
+ src detele Redis
+ 启用服务:
+ redis-server.exe --service-install redis.windows.conf --loglevel verbose 
+
+
+5 &gt; 其中一台电脑启动 redis-server 服务
+6 &gt; 让所有爬虫项目都运行起来，由于没有起始的 url，所有爬虫会暂时处于停滞状态
+7 &gt; 所有爬虫都启动之后，部署 redis-server 服务的电脑，通过命令 redis-cli lpush jobbole:start_urls http://blog.jobbole.com/all-posts/ 向 redis 的 queue 中添加起始的 url
+输入:redis-cli.exe -h 192.168....
+再添加: lpush jobbole:start_urls http://blog.jobbole.com/all-posts/
+
+8 &gt; 所有爬虫开始运行，爬取数据，同时所有的数据都会保存到该爬虫所连接的远程数据库以及远程 redis 中
+</code></pre><hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       
     </div>
     
@@ -482,503 +559,48 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoxiangxiang.cn/2018/09/13/scrapydajianxiangmu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翔">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="&ensp;&emsp;静觅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/13/scrapydajianxiangmu/" itemprop="url">Scrapy搭建爬虫项目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T09:07:16+08:00">
-                2018-09-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/技术分享/" rel="tag"># 技术分享</a>
           
-            
-          
-
-          
-          
-             <span id="/2018/09/13/scrapydajianxiangmu/" class="leancloud_visitors" data-flag-title="Scrapy搭建爬虫项目">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
+      
+        <div class="post-widgets">
         
-          <p>1.输入workon命令，进入已经设置好的一个虚拟环境。</p>
-<p>2.安装scrapy框架:pip install scrapy</p>
-
-         
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/13/scrapydajianxiangmu/" rel="contents">
-              阅读全文 &raquo;
-            </a>
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoxiangxiang.cn/2018/09/12/xunihuanjing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翔">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="&ensp;&emsp;静觅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/12/xunihuanjing/" itemprop="url">Python虚拟环境的安装和配置(windows)</a></h1>
         
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-12T22:46:37+08:00">
-                2018-09-12
-              </time>
-            
+        
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/12/xunihuanjing/" class="leancloud_visitors" data-flag-title="Python虚拟环境的安装和配置(windows)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-              <div class="post-description">
-                  “虚拟环境” 来源于 ShadoWin 虚拟软件所实现的功能。ShadoWin 的工作原理是以专利的实时动态程序行为修饰与模拟算法，直接利用本机的 OS，模拟出自带与本机相容 OS 的虚拟机（Vista 下可模拟 Vista、XP，Windows 7 下则可模拟 Windows 7、Vista、XP），也称为 “虚拟环境”。
-              </div>
-          
-
+        
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
       
 
       
-        
-          <p class="description"></p>
-
-         
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/12/xunihuanjing/" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/13/scrapydajianxiangmu/" rel="next" title="Scrapy搭建爬虫项目">
+                <i class="fa fa-chevron-left"></i> Scrapy搭建爬虫项目
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoxiangxiang.cn/2018/09/12/proxy-pool/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翔">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="&ensp;&emsp;静觅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/12/proxy-pool/" itemprop="url">proxy_pool</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-12T14:14:35+08:00">
-                2018-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/12/proxy-pool/" class="leancloud_visitors" data-flag-title="proxy_pool">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-              <div class="post-description">
-                  代理服务器（ProxyServer）是一种重要的服务器安全功能，它的工作主要在开放系统互联 (OSI) 模型的会话层，从而起到防火墙的作用。代理服务器大多被用来连接INTERNET（国际互联网）和 Local Area Network（局域网）。
-              </div>
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p class="description"></p>
-
-         
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/12/proxy-pool/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -988,495 +610,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoxiangxiang.cn/2018/09/06/a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翔">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="&ensp;&emsp;静觅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/06/a/" itemprop="url">装了Chorme不用这个扩展,还不如去用IE6</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T09:40:28+08:00">
-                2018-09-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/06/a/" class="leancloud_visitors" data-flag-title="装了Chorme不用这个扩展,还不如去用IE6">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-              <div class="post-description">
-                  插件 (Plug-in,又译外挂) 是一种遵循一定规范的应用程序接口编写出来的程序。其只能运行在程序规定的系统平台下（可能同时支持多个平台），而不能脱离指定的平台单独运行。插件的定位是开发实现原纯净系统平台、应用软件平台不具备的功能的程序
-              </div>
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p class="description"></p>
-
-         
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/06/a/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoxiangxiang.cn/2018/09/04/test1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翔">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="&ensp;&emsp;静觅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/04/test1/" itemprop="url">scrapy框架自定义pipeline</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T11:31:01+08:00">
-                2018-09-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/04/test1/" class="leancloud_visitors" data-flag-title="scrapy框架自定义pipeline">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="自定义pipeline"><a href="#自定义pipeline" class="headerlink" title="自定义pipeline"></a>自定义pipeline</h2><p>首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.</p>
-
-         
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/04/test1/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoxiangxiang.cn/2018/09/03/test/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翔">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="&ensp;&emsp;静觅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/03/test/" itemprop="url">博客简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T09:40:28+08:00">
-                2018-09-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/03/test/" class="leancloud_visitors" data-flag-title="博客简介">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>欢迎光临本博客的所有朋友们!</p>
-<p>这是个普通空间，在这里故事不会被渲染，因为它来源于生活。</p>
-
-         
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/03/test/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -1484,6 +622,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1506,8 +648,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1624,6 +775,22 @@ show_date_time();
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式爬虫："><span class="nav-number">1.</span> <span class="nav-text">分布式爬虫：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单机爬虫："><span class="nav-number">2.</span> <span class="nav-text">单机爬虫：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式问题："><span class="nav-number">3.</span> <span class="nav-text">分布式问题：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrapy-redis-第三方库实现分布的部署："><span class="nav-number">4.</span> <span class="nav-text">scrapy_redis 第三方库实现分布的部署：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤："><span class="nav-number">5.</span> <span class="nav-text">步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-有关数据库部分；"><span class="nav-number">6.</span> <span class="nav-text">3. 有关数据库部分；</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1773,6 +940,10 @@ show_date_time();
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -2252,6 +1423,23 @@ show_date_time();
 
   
   
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: ,
+    el: 'wpac-rating',
+    color: 'f79533'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
 
   
 
