@@ -138,7 +138,7 @@
 <meta property="og:site_name" content="&amp;ensp;&amp;emsp;静觅">
 <meta property="og:description" content="分布式爬虫：将一个项目拷贝到多台电脑上，同时爬取数据。 1. 必须保证所有电脑上的代码是相同的配置。 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。 3. 同时将所有的爬虫项目运行起来。 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。 q = queue()url = q.get() # 如果队列是空的，那么 get() 方法会">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-26T11:58:31.120Z">
+<meta property="og:updated_time" content="2018-09-27T03:57:02.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式爬虫的配置">
 <meta name="twitter:description" content="分布式爬虫：将一个项目拷贝到多台电脑上，同时爬取数据。 1. 必须保证所有电脑上的代码是相同的配置。 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。 3. 同时将所有的爬虫项目运行起来。 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。 q = queue()url = q.get() # 如果队列是空的，那么 get() 方法会">
@@ -499,7 +499,7 @@ mysql-&gt;grant all privileges on *.*  to &apos;myroot&apos;@&apos;%&apos; ident
 登录 MySQL 服务
 mysql -uroot -p 
 创建远程连接新用户：
-create user &quot;myuser&quot;@&quot;%&quot; identified by &quot;123456&quot;;
+create user &quot;user&quot;@&quot;%&quot; identified by &quot;123456&quot;;
 给用户分配所有数据库的访问权限：
 GRANT ALL privileges ON *.* TO &apos;user&apos;@&apos;%&apos;;
 
