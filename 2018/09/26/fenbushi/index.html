@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="分布式爬虫：将一个项目拷贝到多台电脑上，同时爬取数据。 1. 必须保证所有电脑上的代码是相同的配置。 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。 3. 同时将所有的爬虫项目运行起来。 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。 q = queue()url = q.get() # 如果队列是空的，那么 get() 方法会">
+<meta name="description" content="分布式爬虫： 1. 概念将同一个爬虫程序放在多台电脑上(或者同一个电脑中的多个虚拟机环境)，并且在多台电脑上同时启动这个爬虫。一个电脑运行一个爬虫程序称为单机爬虫。">
 <meta name="keywords" content="技术分享">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式爬虫的配置">
 <meta property="og:url" content="http://www.gaoxiangxiang.cn/2018/09/26/fenbushi/index.html">
 <meta property="og:site_name" content="&amp;ensp;&amp;emsp;静觅">
-<meta property="og:description" content="分布式爬虫：将一个项目拷贝到多台电脑上，同时爬取数据。 1. 必须保证所有电脑上的代码是相同的配置。 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。 3. 同时将所有的爬虫项目运行起来。 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。 q = queue()url = q.get() # 如果队列是空的，那么 get() 方法会">
+<meta property="og:description" content="分布式爬虫： 1. 概念将同一个爬虫程序放在多台电脑上(或者同一个电脑中的多个虚拟机环境)，并且在多台电脑上同时启动这个爬虫。一个电脑运行一个爬虫程序称为单机爬虫。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-27T03:57:02.279Z">
+<meta property="og:updated_time" content="2018-09-28T13:41:12.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式爬虫的配置">
-<meta name="twitter:description" content="分布式爬虫：将一个项目拷贝到多台电脑上，同时爬取数据。 1. 必须保证所有电脑上的代码是相同的配置。 2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。 3. 同时将所有的爬虫项目运行起来。 4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。 q = queue()url = q.get() # 如果队列是空的，那么 get() 方法会">
+<meta name="twitter:description" content="分布式爬虫： 1. 概念将同一个爬虫程序放在多台电脑上(或者同一个电脑中的多个虚拟机环境)，并且在多台电脑上同时启动这个爬虫。一个电脑运行一个爬虫程序称为单机爬虫。">
 
 
 
@@ -447,103 +447,56 @@
       
 
       
-        <h2 id="分布式爬虫："><a href="#分布式爬虫：" class="headerlink" title="分布式爬虫："></a>分布式爬虫：</h2><pre><code>将一个项目拷贝到多台电脑上，同时爬取数据。
-1. 必须保证所有电脑上的代码是相同的配置。
-2. 在其中一台电脑上启动 redis 和 MySQL 的数据库服务。
-3. 同时将所有的爬虫项目运行起来。
-4. 在启动 redis 和 MySQL 的电脑上， 向 redis 中添加起始的 url。
-</code></pre><p>q = queue()<br>url = q.get() # 如果队列是空的，那么 get() 方法会一直阻塞，直到能取到 url，才会继续向下执行。</p>
-<a id="more"></a>
-<h2 id="单机爬虫："><a href="#单机爬虫：" class="headerlink" title="单机爬虫："></a>单机爬虫：</h2><p>一台电脑运行一个项目。去重采用了 set() 和 queue()，但是这两个都是在内存中存在的。<br>1 &gt; 其他电脑是无法获取另外一台电脑内存中的数据的。<br>2 &gt; 程序终止，内存消失。</p>
-<h2 id="分布式问题："><a href="#分布式问题：" class="headerlink" title="分布式问题："></a>分布式问题：</h2><pre><code>1. 多台电脑如何统一的对 URL 进行去重？
-2. 多台电脑之间如何共用相同的队列？多台电脑获取的 request，如何在多台电脑之间进行同步？
-3. 多台电脑运行同一个爬虫项目，如果有机器爬虫意外终止，如何保证可以继续从队列中获取新的 request，而不是从头开始爬取？
-</code></pre><p>前两个问题可以基于 Redis 实现。相当于将 set() 和 queue() 从 scrapy 框架中抽离出来，将其保存在一个公共的平台中（Redis）。<br>第三个问题：scrapy_redis 已经实现了，重启爬虫不会从头开始重新爬取，而是会继续从队列中获取 request。不用担心爬虫意外终止。</p>
-<h2 id="scrapy-redis-第三方库实现分布的部署："><a href="#scrapy-redis-第三方库实现分布的部署：" class="headerlink" title="scrapy_redis 第三方库实现分布的部署："></a>scrapy_redis 第三方库实现分布的部署：</h2><p>分布式爬虫：只需要在众多电脑中，选择其中一台开启 redis 服务，目的就是在 redis 中创建公用的 queue 和公用的 set，然后剩余电脑只需要连接 redis 服务即可，剩余电脑不需要开启 redis-server 服务。</p>
-<h2 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h2><p>1 &gt; 在虚拟环境中安装 pip install redis<br>2 &gt; 去 github 上搜索 scrapy_redis 库，解压，保存到项目根目录下。根据提供的用例，配置我们的项目，大致三部分：<br>    1.settings.py 文件；</p>
-<pre><code># 配置 scrapy_redis 第三方库 # 所有电脑配置调度器，这个调度器重写了 scrapy 框架内置的调度器。
+        <p>分布式爬虫：</p>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h2><pre><code>将同一个爬虫程序放在多台电脑上(或者同一个电脑中的多个虚拟机环境)，并且在多台电脑上同时启动这个爬虫。一个电脑运行一个爬虫程序称为单机爬虫。
+</code></pre><a id="more"></a>
+<h2 id="2-作用"><a href="#2-作用" class="headerlink" title="## 2. 作用"></a>## 2. 作用</h2><pre><code>可以利用多台电脑的带宽，处理器等资源提高爬虫的爬取速度；
+</code></pre><h2 id="3-原理"><a href="#3-原理" class="headerlink" title="3. 原理"></a>3. 原理</h2><p>分布式需要解决的问题：(共用的队列Queue和共用的去重集合set()，这两个是scrapy自身无法解决的问题。只能通过第三方组件。)</p>
+<h3 id="a-gt-需要保证多台电脑中的爬虫代码完全一致；"><a href="#a-gt-需要保证多台电脑中的爬虫代码完全一致；" class="headerlink" title="a&gt; 需要保证多台电脑中的爬虫代码完全一致；"></a>a&gt; 需要保证多台电脑中的爬虫代码完全一致；</h3><h3 id="b-gt-多台电脑操作同一个网站，如何管理url去重"><a href="#b-gt-多台电脑操作同一个网站，如何管理url去重" class="headerlink" title="b&gt; 多台电脑操作同一个网站，如何管理url去重?"></a>b&gt; 多台电脑操作同一个网站，如何管理url去重?</h3><h4 id="scrapy如何做去重的？"><a href="#scrapy如何做去重的？" class="headerlink" title="scrapy如何做去重的？"></a>scrapy如何做去重的？</h4><p>i&gt; scrapy会将所有的Request对象(request.url，request.method，request.body)进行加密，生成一个指纹对象fingerprint；</p>
+<p>ii&gt; 然后将指纹对象放入set()集合中进行对比，如果set()集合中已经存在这个对象，那么scrapy就会将这个Request抛弃。如果set()集合中不存在这个指纹对象，就将这个Request添加到调度队列queue中，等待被调度器调度；</p>
+<h3 id="c-gt-多台电脑就会有多个set-对象，能否使用各自的set-做去重？"><a href="#c-gt-多台电脑就会有多个set-对象，能否使用各自的set-做去重？" class="headerlink" title="c&gt; 多台电脑就会有多个set()对象，能否使用各自的set()做去重？"></a>c&gt; 多台电脑就会有多个set()对象，能否使用各自的set()做去重？</h3><p>不能。<br>i&gt; 这个set()对象中的数据都是保存在电脑内存中的，电脑的内存空间(运行内存)是不能共享的。</p>
+<p>2&gt; 这个set()对象随着程序的启动而创建，程序的退出而销毁。<br>所以，要解决这个问题，需要让所有电脑共用同一个set()集合。不再使用scrapy内置的set()对象，而是使用scrapy-redis将这个set()集合在redis中创建，然后多台电脑访问同一个redis就可以实现set集合的共用。</p>
+<h3 id="d-gt-用于存放合法Request请求对象的队列，"><a href="#d-gt-用于存放合法Request请求对象的队列，" class="headerlink" title="d&gt; 用于存放合法Request请求对象的队列，"></a>d&gt; 用于存放合法Request请求对象的队列，</h3><p>用于存放合法Request请求对象的队列，在scrapy中也是默认存在于内存中的，也是无法实现多台电脑的共享队列。如果是多台电脑的话，就需要保证多台电脑有共用的队列queue，这样可以保证所有电脑从同一个队列中获取Request对象进行调度，所有set()过滤出来的Request都放到同一个队列中。所以，要解决这个问题，需要让所有电脑共用同一个队列。不再使用scrapy内置的queue，而是使用scrapy-redis将这个queue在redis中创建，然后多台电脑访问同一个redis就可以实现queue的共用。</p>
+<h3 id="e-gt-如何将不同电脑上获取的数据，保存在同一个数据库中。"><a href="#e-gt-如何将不同电脑上获取的数据，保存在同一个数据库中。" class="headerlink" title="e&gt; 如何将不同电脑上获取的数据，保存在同一个数据库中。"></a>e&gt; 如何将不同电脑上获取的数据，保存在同一个数据库中。</h3><h2 id="4-配置"><a href="#4-配置" class="headerlink" title="4. 配置"></a>4. 配置</h2><h3 id="a-gt-必须配置"><a href="#a-gt-必须配置" class="headerlink" title="a&gt; (必须配置)"></a>a&gt; (必须配置)</h3><pre><code># 配置scrapy-redis
+# Enables scheduling storing requests queue in redis.
+# 更换scrapy内置调度器文件，使用scrapy_redis包中的scheduler调度器文件。
 
 SCHEDULER = &quot;scrapy_redis.scheduler.Scheduler&quot;
 
-# 所有电脑配置去重， 这个也是重写了 scrapy 内置的去重。
+# Ensure all spiders share same duplicates filter through redis.
+# 更换scrapy内置的去重文件，使用scrapy_redis包中的dupefilter文件。
 
 DUPEFILTER_CLASS = &quot;scrapy_redis.dupefilter.RFPDupeFilter&quot;
-</code></pre><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"># 所有电脑配置redis的连接地址，设置局域网IP或者公网IP，保证所有电脑都能连接到同一个redis。6379</span>是redis的默认端口号。</span><br><span class="line"><span class="attr"># redis数据库默认只允许本地连接localhost，如需配置远程连接，需要修改redis的配置文件。修改完成以后，要重启redis-server服务。</span></span><br><span class="line"><span class="attr"># 1</span>. <span class="comment">(A B C)</span> 如果用的是局域网部署的分布式，选择其中一台电脑<span class="comment">(A)</span>开启redis-server服务，REDIS_URL就配置成A电脑的局域网IP地址。如果B电脑开启redis-server-&gt;REDIS_URL B电脑的IP地址。</span><br><span class="line"><span class="attr"># 2</span>. <span class="comment">(A B C)</span> 如果用的是公网IP<span class="comment">(阿里云)</span>，那么所有电脑都不需要开启redis-server服务，只需要将REDIS_URL的主机地址配置成公网IP即可。</span><br></pre></td></tr></table></figure>
-<pre><code># myroot: 自定义的 redis 链接（可不写）。IP：开启 redis-server 服务的这台电脑的 IP
-REDIS_URL = &apos;redis://myroot:@192.168.40.217:6379&apos;
-# item_pipelines可以配置，也可以不用配置。如果配置的话：所有下载的item，除了会被保存在数据库MySQL中，还会被保存在Redis数据库中。没有配置：所有的item不会存储在Redis数据库中
-
+</code></pre><h3 id="b-gt-可选配置"><a href="#b-gt-可选配置" class="headerlink" title="b&gt; (可选配置)"></a>b&gt; (可选配置)</h3><pre><code>是否将解析出来的item数据，在redis中保存一份。如果需要保存，就配置这个pipeline。
 ITEM_PIPELINES = {
     &apos;scrapy_redis.pipelines.RedisPipeline&apos;: 300
-}  
-</code></pre><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置HOST为局域网IP，或者公网IPMYSQL_HOST = <span class="string">'192.168.70.246'</span>MYSQL_DB = <span class="string">'jobbole'</span>MYSQL_USER = <span class="string">'myroot'</span>MYSQL_PASSWD = <span class="string">'123456'</span>MYSQL_CHARSET = <span class="string">'utf8'</span>MYSQL_PORT = 3306 </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置scrapy_redis第三方库<span class="comment"># 所有电脑配置调度器，这个调度器重写了scrapy框架内置的调度器。</span></span></span><br><span class="line">SCHEDULER = "scrapy_redis.scheduler.Scheduler"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 所有电脑配置去重， 这个也是重写了scrapy内置的去重。</span></span><br><span class="line">DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 所有电脑配置redis的连接地址，设置局域网IP或者公网IP，保证所有电脑都能连接到同一个redis。6379是redis的默认端口号。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> redis数据库默认只允许本地连接localhost，如需配置远程连接，需要修改redis的配置文件。修改完成以后，要重启redis-server服务。 </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1. (A B C) 如果用的是局域网部署的分布式，选择其中一台电脑(A)开启redis-server服务，REDIS_URL就配置成A电脑的局域网IP地址。如果B电脑开启redis-server-&gt;REDIS_URL B电脑的IP地址。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. (A B C) 如果用的是公网IP(阿里云)，那么所有电脑都不需要开启redis-server服务，只需要将REDIS_URL的主机地址配置成公网IP即可。 REDIS_URL = <span class="string">'redis://@192.168.70.246:6379'</span>  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以配置，也可以不用配置。如果配置的话：所有下载的item，除了会被保存在数据库MySQL中，还会被保存在Redis数据库中。没有配置：所有的item不会存储在Redis数据库中。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ITEM_PIPELINES = &#123;<span class="comment">#     'scrapy_redis.pipelines.RedisPipeline': 300# &#125;</span></span></span><br></pre></td></tr></table></figure>
-<pre><code>2.jobbole.py 文件；
-from scrapy_redis.spiders import RedisSpider
-class JobboleSpider(RedisSpider):
-    name = &apos;jobbole&apos;
+}
+</code></pre><h3 id="c-gt-必须配置"><a href="#c-gt-必须配置" class="headerlink" title="c&gt; (必须配置)"></a>c&gt; (必须配置)</h3><pre><code># 配置REDIS_URL = &apos;(redis://redis数据库用户(默认是root):redis数据库连接密码(默认为空))@(redis的连接地址):(redis的端口号)&apos;
+# hostname： redis的链接地址，由于多台电脑要连接同一个redis数据库，所以，这个链接地址可以是其中一台电脑的IP地址。注意：这个IP地址对应的电脑必须启动redis服务，否则其他电脑无法链接这个IP对应的redis。
+# 如果是在阿里云上购买的redis数据库服务器，这个hostname就填写阿里云的redis服务器的公网IP。
+</code></pre><h4 id="REDIS-URL-‘redis-root-192-168-53-88-6379’"><a href="#REDIS-URL-‘redis-root-192-168-53-88-6379’" class="headerlink" title="REDIS_URL = ‘redis://root:@192.168.53.88:6379’"></a>REDIS_URL = ‘redis://root:@192.168.53.88:6379’</h4><h3 id="d-gt-必须配置"><a href="#d-gt-必须配置" class="headerlink" title="d&gt; (必须配置)"></a>d&gt; (必须配置)</h3><p>配置redis服务，默认redis只支持localhost的本地连接，不允许远程连接，需要配置redis服务，开启远程连接功能。去本地安装包，找到redis.windows.conf文件:<br>    1&gt; 将protected-mode yes这个保护模式关闭，设置为no;<br>    2&gt; 将bind 127.0.0.1修改成REDIS_URL中设置的IP地址(192.168.53.88);</p>
+<p>在修改redis.windows.conf配置文件以后，必须将 “Redis” 服务从计算机-管理中删除，然后重新根据修改后redis.windows.conf配置文件进行注册新的服务，这样修改的配置文件才生效。</p>
+<p>删除服务:  sc detele Redis</p>
+<p>启用服务:  redis-server.exe –service-install redis.windows.conf –loglevel verbose </p>
+<p>注意：分布式爬虫程序中设置的所有的KEY，都是”xxx:xxx”结构，对应的是容器的名称(类似于MySQL中的表名)，并不是容器内容中key:value的这个key。</p>
+<h3 id="e-gt-必须配置"><a href="#e-gt-必须配置" class="headerlink" title="e&gt; (必须配置)"></a>e&gt; (必须配置)</h3><pre><code>from ..scrapy_redis.spiders import RedisSpider
+class BoleSpider(RedisSpider):
+    name = &apos;bole&apos;
     allowed_domains = [&apos;jobbole.com&apos;]
     # start_urls = [&apos;http://blog.jobbole.com/all-posts/&apos;]
 
-# 添加键
+    # 分布式就不需要再设置起始的url，需要通过redis进行添加起始的url。起始的url添加到哪去了？被添加到了公共队列queue中。让多台机器中的其中一台从公共的reids队列queue中，获取起始的url，并对这个起始的url进行请求和解析，获取更多的url，然后将所有的url构造成Request，还放入公共队列queue中，让其他机器获取这些Request请求。
     redis_key = &apos;jobbole:start_urls&apos;
-</code></pre><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy,re</span><br><span class="line"><span class="keyword">from</span> ..items <span class="keyword">import</span> JobbolespiderItem</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"><span class="keyword">from</span> scrapy.loader <span class="keyword">import</span> ItemLoader</span><br><span class="line"><span class="keyword">from</span> scrapy_redis.spiders <span class="keyword">import</span> RedisSpider</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> BoleSpider(RedisSpider):</span><br><span class="line">    name = <span class="string">'bole'</span></span><br><span class="line">    allowed_domains = [<span class="string">'jobbole.com'</span>]</span><br><span class="line">    # start_urls = [<span class="string">'http://blog.jobbole.com/all-posts/'</span>]</span><br><span class="line"></span><br><span class="line">    # 分布式就不需要再设置起始的url，需要通过redis进行添加起始的url。起始的url添加到哪去了？被添加到了公共队列queue中。让多台机器中的其中一台从公共的reids队列queue中，获取起始的url，并对这个起始的url进行请求和解析，获取更多的url，然后将所有的url构造成Request，还放入公共队列queue中，让其他机器获取这些Request请求。</span><br><span class="line"></span><br><span class="line">    redis_key = <span class="string">'jobbole:start_urls'</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-有关数据库部分；"><a href="#3-有关数据库部分；" class="headerlink" title="3. 有关数据库部分；"></a>3. 有关数据库部分；</h2><pre><code>首先要把 MySQL 添加到环境变量中
-第一步：通过 mysql -uroot -p 登录 MySQL 服务。
-第二步：通过 grant all privileges on *.*  to &apos;myroot&apos;@&apos;%&apos; identified by &apos;123456&apos;;(注意一定要带上分号)。
-# *.* 表示所有数据库中的所有表，都能够被远程连接
-# &apos;%&apos; 表示任意 IP 都可以进行链接
-# &apos;myroot&apos; 具有远程链接权限的用户名，自定义。之后就使用这个 User 进行链接数据库
-mysql-&gt;grant all privileges on *.*  to &apos;myroot&apos;@&apos;%&apos; identified by &apos;123456&apos;;  回车即可
-第三步：再去修改爬虫项目（settings.py）中有关数据库的配置。
+</code></pre><h3 id="f-gt-向redis-key-‘jobbole-start-urls’这个键中，添加起始url"><a href="#f-gt-向redis-key-‘jobbole-start-urls’这个键中，添加起始url" class="headerlink" title="f&gt; 向redis_key = ‘jobbole:start_urls’这个键中，添加起始url."></a>f&gt; 向redis_key = ‘jobbole:start_urls’这个键中，添加起始url.</h3><pre><code>    lpush jobbole:start_urls http://blog.jobbole.com/all-posts/
 
-登录 MySQL 服务
-mysql -uroot -p 
-创建远程连接新用户：
+### g&gt; 修改MySQL数据库为远程连接，让所有电脑连接同一个数据库，爬取出来的数据都保存在同一个数据库的表中。
+默认情况下，MySQL分配的root用户只允许本地连接localhost，如果需要通过IP建立数据库的连接，需要创建一个具有远程连接权限的用户：
+
+创建一个名称为 &quot;user&quot; 的用户，%表示该用户可以使用任意IP进行连接，identified by是设置密码。
 create user &quot;user&quot;@&quot;%&quot; identified by &quot;123456&quot;;
-给用户分配所有数据库的访问权限：
+给名称为 &quot;user&quot; 的用户分配所有数据库的读写权限，*.*表示user可以对任意数据库都有操作权限。
 GRANT ALL privileges ON *.* TO &apos;user&apos;@&apos;%&apos;;
-
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment"># 配置数据库</span></span><br><span class="line"><span class="attr">MYSQL_HOST</span> = <span class="string">'192.168.53.64'</span></span><br><span class="line"><span class="attr">MYSQL_DB</span> = <span class="string">'jobbole'</span></span><br><span class="line"><span class="attr">MYSQL_USER</span> = <span class="string">'myuser'</span></span><br><span class="line"><span class="attr">MYSQL_PASSWD</span> = <span class="string">'123456'</span></span><br><span class="line"><span class="attr">MYSQL_PORT</span> = <span class="number">3306</span></span><br><span class="line"><span class="attr">MYSQL_CHARSET</span> = <span class="string">'utf8'</span></span><br></pre></td></tr></table></figure>
-
-然后在数据库中新建连接，连接名随便起，主机名或 IP 地址要与 settings.py 中配置的一致，即开启 redis-server 服务的这台电脑      的 IP，用户名和密码与 settings.py 一致。
-
-3 &gt; 将配置好的项目，拷贝到不同的机器中；
-4 &gt; 选择其中一台机器，开启 redis-server 服务，并修改 redis.windows.conf 配置文件：
-
- #配置远程 IP 地址，供其他的电脑进行连接 redis
-bind: (当前电脑 IP) 192.168.40.217
-
- # 关闭 redis 保护模式protected-mode: no
-
- 在修改redis.windows.conf配置文件以后，必须将 &quot;Redis&quot; 服务从计算机-管理中删除，然后重新根据修改后redis.windows.conf配置文件进行注册新的服务，这样修改的配置文件才生效。
- 删除服务:
- src detele Redis
- 启用服务:
- redis-server.exe --service-install redis.windows.conf --loglevel verbose 
-
-
-5 &gt; 其中一台电脑启动 redis-server 服务
-6 &gt; 让所有爬虫项目都运行起来，由于没有起始的 url，所有爬虫会暂时处于停滞状态
-7 &gt; 所有爬虫都启动之后，部署 redis-server 服务的电脑，通过命令 redis-cli lpush jobbole:start_urls http://blog.jobbole.com/all-posts/ 向 redis 的 queue 中添加起始的 url
-输入:redis-cli.exe -h 192.168....
-再添加: lpush jobbole:start_urls http://blog.jobbole.com/all-posts/
-
-8 &gt; 所有爬虫开始运行，爬取数据，同时所有的数据都会保存到该爬虫所连接的远程数据库以及远程 redis 中
-</code></pre><hr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</code></pre><p>可以参考: <a href="https://blog.csdn.net/weixin_42336579/article/details/81088040" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42336579/article/details/81088040</a></p>
 
       
     </div>
@@ -789,7 +742,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式爬虫："><span class="nav-number">1.</span> <span class="nav-text">分布式爬虫：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单机爬虫："><span class="nav-number">2.</span> <span class="nav-text">单机爬虫：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式问题："><span class="nav-number">3.</span> <span class="nav-text">分布式问题：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrapy-redis-第三方库实现分布的部署："><span class="nav-number">4.</span> <span class="nav-text">scrapy_redis 第三方库实现分布的部署：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤："><span class="nav-number">5.</span> <span class="nav-text">步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-有关数据库部分；"><span class="nav-number">6.</span> <span class="nav-text">3. 有关数据库部分；</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概念"><span class="nav-number">1.</span> <span class="nav-text">1. 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-作用"><span class="nav-number">2.</span> <span class="nav-text">## 2. 作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原理"><span class="nav-number">3.</span> <span class="nav-text">3. 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-gt-需要保证多台电脑中的爬虫代码完全一致；"><span class="nav-number">3.1.</span> <span class="nav-text">a&gt; 需要保证多台电脑中的爬虫代码完全一致；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-gt-多台电脑操作同一个网站，如何管理url去重"><span class="nav-number">3.2.</span> <span class="nav-text">b&gt; 多台电脑操作同一个网站，如何管理url去重?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy如何做去重的？"><span class="nav-number">3.2.1.</span> <span class="nav-text">scrapy如何做去重的？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-gt-多台电脑就会有多个set-对象，能否使用各自的set-做去重？"><span class="nav-number">3.3.</span> <span class="nav-text">c&gt; 多台电脑就会有多个set()对象，能否使用各自的set()做去重？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-gt-用于存放合法Request请求对象的队列，"><span class="nav-number">3.4.</span> <span class="nav-text">d&gt; 用于存放合法Request请求对象的队列，</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-gt-如何将不同电脑上获取的数据，保存在同一个数据库中。"><span class="nav-number">3.5.</span> <span class="nav-text">e&gt; 如何将不同电脑上获取的数据，保存在同一个数据库中。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-配置"><span class="nav-number">4.</span> <span class="nav-text">4. 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-gt-必须配置"><span class="nav-number">4.1.</span> <span class="nav-text">a&gt; (必须配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-gt-可选配置"><span class="nav-number">4.2.</span> <span class="nav-text">b&gt; (可选配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-gt-必须配置"><span class="nav-number">4.3.</span> <span class="nav-text">c&gt; (必须配置)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#REDIS-URL-‘redis-root-192-168-53-88-6379’"><span class="nav-number">4.3.1.</span> <span class="nav-text">REDIS_URL = ‘redis://root:@192.168.53.88:6379’</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-gt-必须配置"><span class="nav-number">4.4.</span> <span class="nav-text">d&gt; (必须配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-gt-必须配置"><span class="nav-number">4.5.</span> <span class="nav-text">e&gt; (必须配置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-gt-向redis-key-‘jobbole-start-urls’这个键中，添加起始url"><span class="nav-number">4.6.</span> <span class="nav-text">f&gt; 向redis_key = ‘jobbole:start_urls’这个键中，添加起始url.</span></a></li></ol></li></ol></div>
             
 
           </div>
