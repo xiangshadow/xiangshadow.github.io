@@ -151,7 +151,7 @@
 <meta property="og:image" content="http://www.gaoxiangxiang.cn/2018/09/27/bushupachong/图片11.png">
 <meta property="og:image" content="http://www.gaoxiangxiang.cn/2018/09/27/bushupachong/图片12.png">
 <meta property="og:image" content="http://www.gaoxiangxiang.cn/2018/09/27/bushupachong/图片13.png">
-<meta property="og:updated_time" content="2018-09-27T13:43:21.695Z">
+<meta property="og:updated_time" content="2018-09-28T01:26:56.595Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scrapyd部署爬虫项目">
 <meta name="twitter:description" content="它就相当于是一个服务器，用于将自己本地的爬虫代码，打包上传到服务器上，让这个爬虫在服务器上运行，可以实现对爬虫的远程管理。(远程启动爬虫，远程关闭爬虫，远程查看爬虫的一些日志。)">
@@ -477,7 +477,7 @@
 <p>d&gt;通过API接口，查看已经上传至scrapyd服务的项目；<br>命令：curl  <a href="http://localhost:6800/listprojects.json" target="_blank" rel="noopener">http://localhost:6800/listprojects.json</a><br>键值：<br>Projects: [] 所有已经上传的爬虫项目，都会显示在这个列表中。<br><img src="/2018/09/27/bushupachong/图片8.png" alt="你想输入的替代文字"></p>
 <p>e&gt;通过API接口，查看某一个项目中的所有爬虫名称；<br>命令：curl  <a href="http://localhost:6800/listspiders.json?project=jobbolespider" target="_blank" rel="noopener">http://localhost:6800/listspiders.json?project=jobbolespider</a><br><img src="/2018/09/27/bushupachong/图片9.png" alt="你想输入的替代文字"></p>
 <p>注意：如果项目上传失败，需要先将爬虫项目中打包生成的文件删除(build、project.egg-info、setup.py)，然后再重新打包上传。</p>
-<p>f&gt;通过API接口，启动爬虫项目；<br>命令：curl <a href="http://localhost:6800/schedule.json" target="_blank" rel="noopener">http://localhost:6800/schedule.json</a> -d porject=爬虫项目名称 -d  spider=项目中某一个爬虫名称<br>键值：<br>Jobid: 是根据项目(jobbolespider)和爬虫(bole)生成的一个id，将来用于取消爬虫任务。<br><img src="/2018/09/27/bushupachong/图片10.png" alt="你想输入的替代文字"></p>
+<p>f&gt;通过API接口，启动爬虫项目；<br>命令：curl <a href="http://localhost:6800/schedule.json" target="_blank" rel="noopener">http://localhost:6800/schedule.json</a> -d project=爬虫项目名称 -d  spider=项目中某一个爬虫名称<br>键值：<br>Jobid: 是根据项目(jobbolespider)和爬虫(bole)生成的一个id，将来用于取消爬虫任务。<br><img src="/2018/09/27/bushupachong/图片10.png" alt="你想输入的替代文字"></p>
 <p>g&gt;如果上传的项目无法运行，在本地调整代码以后，需要重新打包上传。将失效的项目删除。<br>命令：curl <a href="http://localhost:6800/delproject.json" target="_blank" rel="noopener">http://localhost:6800/delproject.json</a> -d project=jobbolespider<br><img src="/2018/09/27/bushupachong/图片11.png" alt="你想输入的替代文字"></p>
 <p>h&gt;通过API接口，取消爬虫任务；<br>参数：<br>Jobid：启动爬虫的时候分配的<br><img src="/2018/09/27/bushupachong/图片12.png" alt="你想输入的替代文字"><br><img src="/2018/09/27/bushupachong/图片13.png" alt="你想输入的替代文字"></p>
 
