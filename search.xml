@@ -13,7 +13,7 @@
     <url>%2F2018%2F09%2F27%2Fbushupachong%2F</url>
     <content type="text"><![CDATA[它就相当于是一个服务器，用于将自己本地的爬虫代码，打包上传到服务器上，让这个爬虫在服务器上运行，可以实现对爬虫的远程管理。(远程启动爬虫，远程关闭爬虫，远程查看爬虫的一些日志。) 1.Scrapd的安装。Pip install scrapyd 2.如何将本地的爬虫项目Deploying(打包)，上传至scrapyd这个服务中。a&gt;scrapyd提供了一个客户端工具，就是scrapyd-client，使用这个工具对scrapyd这个服务进行操作，比如：向scrapyd服务打包上传项目。scrapyd-client类似于redis-cli.exe、mongodb数据库的client。scrapyd-client下载地址：https://github.com/scrapy/scrapyd-client b&gt;Pip install scrapyd-client==1.2.0a1 注意：服务端scrapyd(==1.2)和客户端scrapyd-client(==1.1)安装的版本一定要保持一致。 3.上述服务和客户端安装好之后，可以启动scrapyd这个服务了，服务启动之后，不要关闭。 访问127.0.0.1:6800,出现以下页面表示成功启动scrapyd服务： 4&gt;配置爬虫项目，完成以后，再通过addversion.json进行打包。 修改scrapy.cfg文件： 5&gt;上述的scrapyd服务窗口cmd不要关闭，再新打开一个cmd窗口，用于使用scrapyd-client客户端连接scrapyd服务。a&gt;进入项目根目录，然后输入scrapyd-deploy命令，查看scrapyd-client客户端命令能否正常使用； b&gt;查看当前可用于打包上传的爬虫项目； c&gt;使用scrapyd-deploy命令打包上传项目；命令：Scrapyd-deploy bole -p jobbolespider参数：Status: “ok”/”error” 项目上传状态Project: 上传的项目名称Version: 项目的版本号，值是时间戳Spiders: 项目Project包含的爬虫个数 d&gt;通过API接口，查看已经上传至scrapyd服务的项目；命令：curl http://localhost:6800/listprojects.json键值：Projects: [] 所有已经上传的爬虫项目，都会显示在这个列表中。 e&gt;通过API接口，查看某一个项目中的所有爬虫名称；命令：curl http://localhost:6800/listspiders.json?project=jobbolespider 注意：如果项目上传失败，需要先将爬虫项目中打包生成的文件删除(build、project.egg-info、setup.py)，然后再重新打包上传。 f&gt;通过API接口，启动爬虫项目；命令：curl http://localhost:6800/schedule.json -d project=爬虫项目名称 -d spider=项目中某一个爬虫名称键值：Jobid: 是根据项目(jobbolespider)和爬虫(bole)生成的一个id，将来用于取消爬虫任务。 g&gt;如果上传的项目无法运行，在本地调整代码以后，需要重新打包上传。将失效的项目删除。命令：curl http://localhost:6800/delproject.json -d project=jobbolespider h&gt;通过API接口，取消爬虫任务；参数：Jobid：启动爬虫的时候分配的]]></content>
       <tags>
-        <tag>学习心得</tag>
+        <tag>技术分享</tag>
       </tags>
   </entry>
   <entry>
