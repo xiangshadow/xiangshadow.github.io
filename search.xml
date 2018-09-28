@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[布隆去重]]></title>
+    <url>%2F2018%2F09%2F28%2Fbulongquchong%2F</url>
+    <content type="text"><![CDATA[布隆去重：应用场景：针对分布式包scrapy_redis使用，一般scarpy框架直接使用内置的去重机制，不建议修改scrapy源码配置布隆去重。 作用：针对大量的url，可以提升url的去重量。并且占用很少的内存空间。set()内存创建。 爬虫去重方案：1. 利用数据库去重利用数据库去重；(数据量少的爬虫程序)，每爬取一个Url地址，都将这个url地址在数据库中保存一份，然后在获取新的url地址时，先查询一下数据库中是否已经存在这个url，如果已经存在直接跳过这个url，继续解析下一个url。这种去重方案每次都要读写数据库(每次都要和本地磁盘进行交互，这种效率相对来说(内存)是较低的。)100000000(亿) 2bytes50个字符/1024(KB)/1024(MB)/1024(GB) = 9(GB) 2. 使用内存去重使用内存去重；可以大大降低内存和磁盘的交互次数，提高去重的效率。如果数据量太大，会占用过多的内存空间。如果使用内存进行去重的话，肯定是需要对数据进行加密，加密之后数据的长度会更少，进而占用更少的内存空间。一般加密方法不管原始数据是多长，加密之后的长度都是固定的。scrapy使用的就是内存去重，而且对原始数据进行hash加密。hash加密比md5/base64加密后的数据长度更少，一般hash加密是按照 “位 来计算内存的。如果使用md5加密可能会占用3GB的内存空间，但是hash加密大概在2GB的内存。 ###3. 采用布隆去重采用布隆去重，也是内存去重，程序直接从内存中读取数据，比从磁盘中读取数据要快的多。100000000(亿) * 1bit/8bytes/1024(KB)/1024(MB)/1024(GB) = 0.0116(GB) = 12MB 布隆去重的配置： 去Github上下载布隆去重的包；https://github.com/liyaopinner/BloomFilter_imooc 将这个包放在scrapy_redis这个分布式的包中； 使用布隆去重的代码，替换scrapy_redis中的代码；]]></content>
+      <tags>
+        <tag>学习心得</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Gerapy分布式爬虫管理框架]]></title>
     <url>%2F2018%2F09%2F28%2Ffenbukuangjia%2F</url>
     <content type="text"><![CDATA[一、介绍：Gerapy 是一款分布式爬虫管理框架，支持 Python 3，基于 Scrapy、Scrapyd、Scrapyd-Client、Scrapy-Redis、Scrapyd-API、Scrapy-Splash、Jinjia2、Django、Vue.js 开发。 二、gerapy的初始化配置：1.安装gerapy框架。$ pip install gerapy 2.检查gerapy是否可用。$ gerapy 3.初始化gerapy，生成gerapy框架的工作目录。(在哪初始化，工作目录就创建在哪。初始化完成，进入gerapy文件夹，会有一个projects文件夹。)$ gerapy init 4.先进入gerapy目录，再执行gerapy数据库的初始化，建立相关的数据库表。$ cd gerapy$ gerapy migrate 5.在gerapy目录下，启动gerapy服务，默认在8000端口。$ gerapy runserver 6.打开浏览器，输入：http://localhost:8000，可以看到 Gerapy 的主界面。 7.完成以上步骤，说明gerapy初始化成功了。但是现在还没有添加主机和项目，所有的主机数量和项目数量都是0。三、配置gerapy的主机1. 点击左侧 Clients 选项卡，即主机管理页面，添加我们的 Scrapyd 远程服务，点击右上角的创建按钮即可添加我们需要管理的 Scrapyd 服务。 2.在cmd中，开启scrapyd服务。(如果scrapyd在远程服务器上已经部署成功了，那么是不需要再次进行开启的。一般远程服务器上的scrapyd会一直保持运行状态。)3.再次刷新主机管理，scrapyd的连接状态变成normal即可。 四、在gerapy中部署爬虫项目1. 点击左侧的 Projects ，即项目管理选项。 2.将自己的爬虫项目，拷贝到gerapy目录下的projects目录下。 3.刷新浏览器页面，我们便可以看到 Gerapy 检测到了这个项目。 4.点击部署按钮进行打包和部署，在右下角我们可以输入打包时的描述信息，类似于 Git 的 commit 信息，然后点击打包按钮，即可发现 Gerapy 会提示打包成功，同时在左侧显示打包的结果和打包名称。 5.开始打包。 6.打包完成以后，开始将爬虫项目部署到scrapyd服务上。 五、开始调度爬虫，检测爬虫的运行状态。1.部署完毕之后就可以回到 “主机管理”页面进行任务调度。 2.选择要运行的爬虫项目。 3.查看运行结果。]]></content>

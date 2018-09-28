@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.gaoxiangxiang.cn/"/>
-  <updated>2018-09-28T08:29:19.921Z</updated>
+  <updated>2018-09-28T12:24:10.019Z</updated>
   <id>http://www.gaoxiangxiang.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>布隆去重</title>
+    <link href="http://www.gaoxiangxiang.cn/2018/09/28/bulongquchong/"/>
+    <id>http://www.gaoxiangxiang.cn/2018/09/28/bulongquchong/</id>
+    <published>2018-09-28T11:50:09.000Z</published>
+    <updated>2018-09-28T12:24:10.019Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="布隆去重："><a href="#布隆去重：" class="headerlink" title="布隆去重："></a>布隆去重：</h2><p>应用场景：针对分布式包scrapy_redis使用，一般scarpy框架直接使用内置的去重机制，不建议修改scrapy源码配置布隆去重。</p><a id="more"></a><p>作用：针对大量的url，可以提升url的去重量。并且占用很少的内存空间。set()内存创建。</p><h2 id="爬虫去重方案："><a href="#爬虫去重方案：" class="headerlink" title="爬虫去重方案："></a>爬虫去重方案：</h2><h3 id="1-利用数据库去重"><a href="#1-利用数据库去重" class="headerlink" title="1. 利用数据库去重"></a>1. 利用数据库去重</h3><p>利用数据库去重；(数据量少的爬虫程序)，每爬取一个Url地址，都将这个url地址在数据库中保存一份，然后在获取新的url地址时，先查询一下数据库中是否已经存在这个url，如果已经存在直接跳过这个url，继续解析下一个url。这种去重方案每次都要读写数据库(每次都要和本地磁盘进行交互，这种效率相对来说(内存)是较低的。)<br>100000000(亿) <em> 2bytes</em>50个字符/1024(KB)/1024(MB)/1024(GB) = 9(GB)</p><h3 id="2-使用内存去重"><a href="#2-使用内存去重" class="headerlink" title="2. 使用内存去重"></a>2. 使用内存去重</h3><p>使用内存去重；可以大大降低内存和磁盘的交互次数，提高去重的效率。如果数据量太大，会占用过多的内存空间。如果使用内存进行去重的话，肯定是需要对数据进行加密，加密之后数据的长度会更少，进而占用更少的内存空间。一般加密方法不管原始数据是多长，加密之后的长度都是固定的。scrapy使用的就是内存去重，而且对原始数据进行hash加密。hash加密比md5/base64加密后的数据长度更少，一般hash加密是按照 “位<br> 来计算内存的。如果使用md5加密可能会占用3GB的内存空间，但是hash加密大概在2GB的内存。</p><p>###3. 采用布隆去重<br>采用布隆去重，也是内存去重，程序直接从内存中读取数据，比从磁盘中读取数据要快的多。<br>100000000(亿) * 1bit/8bytes/1024(KB)/1024(MB)/1024(GB) = 0.0116(GB) = 12MB</p><h3 id="布隆去重的配置："><a href="#布隆去重的配置：" class="headerlink" title="布隆去重的配置："></a>布隆去重的配置：</h3><ol><li>去Github上下载布隆去重的包；<br><a href="https://github.com/liyaopinner/BloomFilter_imooc" target="_blank" rel="noopener">https://github.com/liyaopinner/BloomFilter_imooc</a></li><li>将这个包放在scrapy_redis这个分布式的包中；<br><img src="http://ww1.sinaimg.cn/large/006yb8Aoly1fvpiteqoj5j307907b3yg.jpg" alt=""></li><li>使用布隆去重的代码，替换scrapy_redis中的代码；<br><img src="https://ws1.sinaimg.cn/large/006yb8Aoly1fvpivwp9m3j30ov0lhwh2.jpg" alt=""></li></ol><p><img src="https://ws1.sinaimg.cn/large/006yb8Aoly1fvpiw1vaflj30o50azwf9.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/006yb8Aoly1fvpiwclwbcj30gc073jrm.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;布隆去重：&quot;&gt;&lt;a href=&quot;#布隆去重：&quot; class=&quot;headerlink&quot; title=&quot;布隆去重：&quot;&gt;&lt;/a&gt;布隆去重：&lt;/h2&gt;&lt;p&gt;应用场景：针对分布式包scrapy_redis使用，一般scarpy框架直接使用内置的去重机制，不建议修改scrapy源码配置布隆去重。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="学习心得" scheme="http://www.gaoxiangxiang.cn/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
+    
+  </entry>
   
   <entry>
     <title>Gerapy分布式爬虫管理框架</title>
