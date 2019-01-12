@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.gaoxiangxiang.cn/"/>
-  <updated>2018-09-28T12:24:10.019Z</updated>
+  <updated>2018-09-12T11:10:26.699Z</updated>
   <id>http://www.gaoxiangxiang.cn/</id>
   
   <author>
@@ -15,149 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>布隆去重</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/28/bulongquchong/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/28/bulongquchong/</id>
-    <published>2018-09-28T11:50:09.000Z</published>
-    <updated>2018-09-28T12:24:10.019Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="布隆去重："><a href="#布隆去重：" class="headerlink" title="布隆去重："></a>布隆去重：</h2><p>应用场景：针对分布式包scrapy_redis使用，一般scarpy框架直接使用内置的去重机制，不建议修改scrapy源码配置布隆去重。</p><a id="more"></a><p>作用：针对大量的url，可以提升url的去重量。并且占用很少的内存空间。set()内存创建。</p><h2 id="爬虫去重方案："><a href="#爬虫去重方案：" class="headerlink" title="爬虫去重方案："></a>爬虫去重方案：</h2><h3 id="1-利用数据库去重"><a href="#1-利用数据库去重" class="headerlink" title="1. 利用数据库去重"></a>1. 利用数据库去重</h3><p>利用数据库去重；(数据量少的爬虫程序)，每爬取一个Url地址，都将这个url地址在数据库中保存一份，然后在获取新的url地址时，先查询一下数据库中是否已经存在这个url，如果已经存在直接跳过这个url，继续解析下一个url。这种去重方案每次都要读写数据库(每次都要和本地磁盘进行交互，这种效率相对来说(内存)是较低的。)<br>100000000(亿) <em> 2bytes</em>50个字符/1024(KB)/1024(MB)/1024(GB) = 9(GB)</p><h3 id="2-使用内存去重"><a href="#2-使用内存去重" class="headerlink" title="2. 使用内存去重"></a>2. 使用内存去重</h3><p>使用内存去重；可以大大降低内存和磁盘的交互次数，提高去重的效率。如果数据量太大，会占用过多的内存空间。如果使用内存进行去重的话，肯定是需要对数据进行加密，加密之后数据的长度会更少，进而占用更少的内存空间。一般加密方法不管原始数据是多长，加密之后的长度都是固定的。scrapy使用的就是内存去重，而且对原始数据进行hash加密。hash加密比md5/base64加密后的数据长度更少，一般hash加密是按照 “位<br> 来计算内存的。如果使用md5加密可能会占用3GB的内存空间，但是hash加密大概在2GB的内存。</p><p>###3. 采用布隆去重<br>采用布隆去重，也是内存去重，程序直接从内存中读取数据，比从磁盘中读取数据要快的多。<br>100000000(亿) * 1bit/8bytes/1024(KB)/1024(MB)/1024(GB) = 0.0116(GB) = 12MB</p><h3 id="布隆去重的配置："><a href="#布隆去重的配置：" class="headerlink" title="布隆去重的配置："></a>布隆去重的配置：</h3><ol><li>去Github上下载布隆去重的包；<br><a href="https://github.com/liyaopinner/BloomFilter_imooc" target="_blank" rel="noopener">https://github.com/liyaopinner/BloomFilter_imooc</a></li><li>将这个包放在scrapy_redis这个分布式的包中；<br><img src="http://ww1.sinaimg.cn/large/006yb8Aoly1fvpiteqoj5j307907b3yg.jpg" alt=""></li><li>使用布隆去重的代码，替换scrapy_redis中的代码；<br><img src="https://ws1.sinaimg.cn/large/006yb8Aoly1fvpivwp9m3j30ov0lhwh2.jpg" alt=""></li></ol><p><img src="https://ws1.sinaimg.cn/large/006yb8Aoly1fvpiw1vaflj30o50azwf9.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/006yb8Aoly1fvpiwclwbcj30gc073jrm.jpg" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;布隆去重：&quot;&gt;&lt;a href=&quot;#布隆去重：&quot; class=&quot;headerlink&quot; title=&quot;布隆去重：&quot;&gt;&lt;/a&gt;布隆去重：&lt;/h2&gt;&lt;p&gt;应用场景：针对分布式包scrapy_redis使用，一般scarpy框架直接使用内置的去重机制，不建议修改scrapy源码配置布隆去重。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="学习心得" scheme="http://www.gaoxiangxiang.cn/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gerapy分布式爬虫管理框架</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/28/fenbukuangjia/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/28/fenbukuangjia/</id>
-    <published>2018-09-28T08:15:36.000Z</published>
-    <updated>2018-09-28T08:29:19.921Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、介绍："><a href="#一、介绍：" class="headerlink" title="一、介绍："></a>一、介绍：</h2><p>Gerapy 是一款分布式爬虫管理框架，支持 Python 3，基于 Scrapy、Scrapyd、Scrapyd-Client、Scrapy-Redis、Scrapyd-API、Scrapy-Splash、Jinjia2、Django、Vue.js 开发。</p><a id="more"></a><h2 id="二、gerapy的初始化配置："><a href="#二、gerapy的初始化配置：" class="headerlink" title="二、gerapy的初始化配置："></a>二、gerapy的初始化配置：</h2><h3 id="1-安装gerapy框架。"><a href="#1-安装gerapy框架。" class="headerlink" title="1.安装gerapy框架。"></a>1.安装gerapy框架。</h3><p>$ pip install gerapy</p><h3 id="2-检查gerapy是否可用。"><a href="#2-检查gerapy是否可用。" class="headerlink" title="2.检查gerapy是否可用。"></a>2.检查gerapy是否可用。</h3><p>$ gerapy<br><img src="/2018/09/28/fenbukuangjia/图片1.png" alt="你想输入的替代文字"></p><h3 id="3-初始化gerapy，生成gerapy框架的工作目录。-在哪初始化，工作目录就创建在哪。初始化完成，进入gerapy文件夹，会有一个projects文件夹。"><a href="#3-初始化gerapy，生成gerapy框架的工作目录。-在哪初始化，工作目录就创建在哪。初始化完成，进入gerapy文件夹，会有一个projects文件夹。" class="headerlink" title="3.初始化gerapy，生成gerapy框架的工作目录。(在哪初始化，工作目录就创建在哪。初始化完成，进入gerapy文件夹，会有一个projects文件夹。)"></a>3.初始化gerapy，生成gerapy框架的工作目录。(在哪初始化，工作目录就创建在哪。初始化完成，进入gerapy文件夹，会有一个projects文件夹。)</h3><p>$ gerapy init</p><h3 id="4-先进入gerapy目录，再执行gerapy数据库的初始化，建立相关的数据库表。"><a href="#4-先进入gerapy目录，再执行gerapy数据库的初始化，建立相关的数据库表。" class="headerlink" title="4.先进入gerapy目录，再执行gerapy数据库的初始化，建立相关的数据库表。"></a>4.先进入gerapy目录，再执行gerapy数据库的初始化，建立相关的数据库表。</h3><p>$ cd gerapy<br>$ gerapy migrate<br><img src="/2018/09/28/fenbukuangjia/图片2.png" alt="你想输入的替代文字"></p><h3 id="5-在gerapy目录下，启动gerapy服务，默认在8000端口。"><a href="#5-在gerapy目录下，启动gerapy服务，默认在8000端口。" class="headerlink" title="5.在gerapy目录下，启动gerapy服务，默认在8000端口。"></a>5.在gerapy目录下，启动gerapy服务，默认在8000端口。</h3><p>$ gerapy runserver<br><img src="/2018/09/28/fenbukuangjia/图片3.png" alt="你想输入的替代文字"></p><h3 id="6-打开浏览器，输入：http-localhost-8000，可以看到-Gerapy-的主界面。"><a href="#6-打开浏览器，输入：http-localhost-8000，可以看到-Gerapy-的主界面。" class="headerlink" title="6.打开浏览器，输入：http://localhost:8000，可以看到 Gerapy 的主界面。"></a>6.打开浏览器，输入：<a href="http://localhost:8000，可以看到" target="_blank" rel="noopener">http://localhost:8000，可以看到</a> Gerapy 的主界面。</h3><p><img src="/2018/09/28/fenbukuangjia/图片4.png" alt="你想输入的替代文字"></p><h3 id="7-完成以上步骤，说明gerapy初始化成功了。但是现在还没有添加主机和项目，所有的主机数量和项目数量都是0。"><a href="#7-完成以上步骤，说明gerapy初始化成功了。但是现在还没有添加主机和项目，所有的主机数量和项目数量都是0。" class="headerlink" title="7.完成以上步骤，说明gerapy初始化成功了。但是现在还没有添加主机和项目，所有的主机数量和项目数量都是0。"></a>7.完成以上步骤，说明gerapy初始化成功了。但是现在还没有添加主机和项目，所有的主机数量和项目数量都是0。</h3><h2 id="三、配置gerapy的主机"><a href="#三、配置gerapy的主机" class="headerlink" title="三、配置gerapy的主机"></a>三、配置gerapy的主机</h2><h3 id="1-点击左侧-Clients-选项卡，即主机管理页面，添加我们的-Scrapyd-远程服务，点击右上角的创建按钮即可添加我们需要管理的-Scrapyd-服务。"><a href="#1-点击左侧-Clients-选项卡，即主机管理页面，添加我们的-Scrapyd-远程服务，点击右上角的创建按钮即可添加我们需要管理的-Scrapyd-服务。" class="headerlink" title="1. 点击左侧 Clients 选项卡，即主机管理页面，添加我们的 Scrapyd 远程服务，点击右上角的创建按钮即可添加我们需要管理的 Scrapyd 服务。"></a>1. 点击左侧 Clients 选项卡，即主机管理页面，添加我们的 Scrapyd 远程服务，点击右上角的创建按钮即可添加我们需要管理的 Scrapyd 服务。</h3><p><img src="/2018/09/28/fenbukuangjia/图片5.png" alt="你想输入的替代文字"><br><img src="/2018/09/28/fenbukuangjia/图片6.png" alt="你想输入的替代文字"><br><img src="/2018/09/28/fenbukuangjia/图片7.png" alt="你想输入的替代文字"></p><h3 id="2-在cmd中，开启scrapyd服务。-如果scrapyd在远程服务器上已经部署成功了，那么是不需要再次进行开启的。一般远程服务器上的scrapyd会一直保持运行状态。"><a href="#2-在cmd中，开启scrapyd服务。-如果scrapyd在远程服务器上已经部署成功了，那么是不需要再次进行开启的。一般远程服务器上的scrapyd会一直保持运行状态。" class="headerlink" title="2.在cmd中，开启scrapyd服务。(如果scrapyd在远程服务器上已经部署成功了，那么是不需要再次进行开启的。一般远程服务器上的scrapyd会一直保持运行状态。)"></a>2.在cmd中，开启scrapyd服务。(如果scrapyd在远程服务器上已经部署成功了，那么是不需要再次进行开启的。一般远程服务器上的scrapyd会一直保持运行状态。)</h3><h3 id="3-再次刷新主机管理，scrapyd的连接状态变成normal即可。"><a href="#3-再次刷新主机管理，scrapyd的连接状态变成normal即可。" class="headerlink" title="3.再次刷新主机管理，scrapyd的连接状态变成normal即可。"></a>3.再次刷新主机管理，scrapyd的连接状态变成normal即可。</h3><p><img src="/2018/09/28/fenbukuangjia/图片8.png" alt="你想输入的替代文字"></p><h2 id="四、在gerapy中部署爬虫项目"><a href="#四、在gerapy中部署爬虫项目" class="headerlink" title="四、在gerapy中部署爬虫项目"></a>四、在gerapy中部署爬虫项目</h2><h3 id="1-点击左侧的-Projects-，即项目管理选项。"><a href="#1-点击左侧的-Projects-，即项目管理选项。" class="headerlink" title="1. 点击左侧的 Projects ，即项目管理选项。"></a>1. 点击左侧的 Projects ，即项目管理选项。</h3><p><img src="/2018/09/28/fenbukuangjia/图片9.png" alt="你想输入的替代文字"></p><h3 id="2-将自己的爬虫项目，拷贝到gerapy目录下的projects目录下。"><a href="#2-将自己的爬虫项目，拷贝到gerapy目录下的projects目录下。" class="headerlink" title="2.将自己的爬虫项目，拷贝到gerapy目录下的projects目录下。"></a>2.将自己的爬虫项目，拷贝到gerapy目录下的projects目录下。</h3><p><img src="/2018/09/28/fenbukuangjia/图片10.png" alt="你想输入的替代文字"></p><h3 id="3-刷新浏览器页面，我们便可以看到-Gerapy-检测到了这个项目。"><a href="#3-刷新浏览器页面，我们便可以看到-Gerapy-检测到了这个项目。" class="headerlink" title="3.刷新浏览器页面，我们便可以看到 Gerapy 检测到了这个项目。"></a>3.刷新浏览器页面，我们便可以看到 Gerapy 检测到了这个项目。</h3><p><img src="/2018/09/28/fenbukuangjia/图片11.png" alt="你想输入的替代文字"></p><h3 id="4-点击部署按钮进行打包和部署，在右下角我们可以输入打包时的描述信息，类似于-Git-的-commit-信息，然后点击打包按钮，即可发现-Gerapy-会提示打包成功，同时在左侧显示打包的结果和打包名称。"><a href="#4-点击部署按钮进行打包和部署，在右下角我们可以输入打包时的描述信息，类似于-Git-的-commit-信息，然后点击打包按钮，即可发现-Gerapy-会提示打包成功，同时在左侧显示打包的结果和打包名称。" class="headerlink" title="4.点击部署按钮进行打包和部署，在右下角我们可以输入打包时的描述信息，类似于 Git 的 commit 信息，然后点击打包按钮，即可发现 Gerapy 会提示打包成功，同时在左侧显示打包的结果和打包名称。"></a>4.点击部署按钮进行打包和部署，在右下角我们可以输入打包时的描述信息，类似于 Git 的 commit 信息，然后点击打包按钮，即可发现 Gerapy 会提示打包成功，同时在左侧显示打包的结果和打包名称。</h3><p><img src="/2018/09/28/fenbukuangjia/图片12.png" alt="你想输入的替代文字"></p><h3 id="5-开始打包。"><a href="#5-开始打包。" class="headerlink" title="5.开始打包。"></a>5.开始打包。</h3><p><img src="/2018/09/28/fenbukuangjia/图片13.png" alt="你想输入的替代文字"></p><h3 id="6-打包完成以后，开始将爬虫项目部署到scrapyd服务上。"><a href="#6-打包完成以后，开始将爬虫项目部署到scrapyd服务上。" class="headerlink" title="6.打包完成以后，开始将爬虫项目部署到scrapyd服务上。"></a>6.打包完成以后，开始将爬虫项目部署到scrapyd服务上。</h3><p><img src="/2018/09/28/fenbukuangjia/图片14.png" alt="你想输入的替代文字"></p><h2 id="五、开始调度爬虫，检测爬虫的运行状态。"><a href="#五、开始调度爬虫，检测爬虫的运行状态。" class="headerlink" title="五、开始调度爬虫，检测爬虫的运行状态。"></a>五、开始调度爬虫，检测爬虫的运行状态。</h2><h3 id="1-部署完毕之后就可以回到-“主机管理”页面进行任务调度。"><a href="#1-部署完毕之后就可以回到-“主机管理”页面进行任务调度。" class="headerlink" title="1.部署完毕之后就可以回到 “主机管理”页面进行任务调度。"></a>1.部署完毕之后就可以回到 “主机管理”页面进行任务调度。</h3><p><img src="/2018/09/28/fenbukuangjia/图片15.png" alt="你想输入的替代文字"></p><h3 id="2-选择要运行的爬虫项目。"><a href="#2-选择要运行的爬虫项目。" class="headerlink" title="2.选择要运行的爬虫项目。"></a>2.选择要运行的爬虫项目。</h3><p><img src="/2018/09/28/fenbukuangjia/图片16.png" alt="你想输入的替代文字"></p><h3 id="3-查看运行结果。"><a href="#3-查看运行结果。" class="headerlink" title="3.查看运行结果。"></a>3.查看运行结果。</h3><p><img src="/2018/09/28/fenbukuangjia/图片17.png" alt="你想输入的替代文字"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;一、介绍：&quot;&gt;&lt;a href=&quot;#一、介绍：&quot; class=&quot;headerlink&quot; title=&quot;一、介绍：&quot;&gt;&lt;/a&gt;一、介绍：&lt;/h2&gt;&lt;p&gt;Gerapy 是一款分布式爬虫管理框架，支持 Python 3，基于 Scrapy、Scrapyd、Scrapyd-Client、Scrapy-Redis、Scrapyd-API、Scrapy-Splash、Jinjia2、Django、Vue.js 开发。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="技术分享" scheme="http://www.gaoxiangxiang.cn/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>scrapyd部署爬虫项目</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/27/bushupachong/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/27/bushupachong/</id>
-    <published>2018-09-27T13:12:27.000Z</published>
-    <updated>2018-09-28T08:37:07.869Z</updated>
-    
-    <content type="html"><![CDATA[<p>它就相当于是一个服务器，用于将自己本地的爬虫代码，打包上传到服务器上，让这个爬虫在服务器上运行，可以实现对爬虫的远程管理。(远程启动爬虫，远程关闭爬虫，远程查看爬虫的一些日志。)</p><a id="more"></a><h2 id="1-Scrapd的安装。"><a href="#1-Scrapd的安装。" class="headerlink" title="1.Scrapd的安装。"></a>1.Scrapd的安装。</h2><p>Pip install scrapyd</p><h2 id="2-如何将本地的爬虫项目Deploying-打包-，上传至scrapyd这个服务中。"><a href="#2-如何将本地的爬虫项目Deploying-打包-，上传至scrapyd这个服务中。" class="headerlink" title="2.如何将本地的爬虫项目Deploying(打包)，上传至scrapyd这个服务中。"></a>2.如何将本地的爬虫项目Deploying(打包)，上传至scrapyd这个服务中。</h2><p>a&gt;scrapyd提供了一个客户端工具，就是scrapyd-client，使用这个工具对scrapyd这个服务进行操作，比如：向scrapyd服务打包上传项目。scrapyd-client类似于redis-cli.exe、mongodb数据库的client。<br>scrapyd-client下载地址：<a href="https://github.com/scrapy/scrapyd-client" target="_blank" rel="noopener">https://github.com/scrapy/scrapyd-client</a></p><p>b&gt;Pip install scrapyd-client==1.2.0a1</p><p>注意：服务端scrapyd(==1.2)和客户端scrapyd-client(==1.1)安装的版本一定要保持一致。</p><h2 id="3-上述服务和客户端安装好之后，可以启动scrapyd这个服务了，服务启动之后，不要关闭。"><a href="#3-上述服务和客户端安装好之后，可以启动scrapyd这个服务了，服务启动之后，不要关闭。" class="headerlink" title="3.上述服务和客户端安装好之后，可以启动scrapyd这个服务了，服务启动之后，不要关闭。"></a>3.上述服务和客户端安装好之后，可以启动scrapyd这个服务了，服务启动之后，不要关闭。</h2><p><img src="/2018/09/27/bushupachong/图片1.png" alt="你想输入的替代文字"></p><p>访问127.0.0.1:6800,出现以下页面表示成功启动scrapyd服务：<br><img src="/2018/09/27/bushupachong/图片2.png" alt="你想输入的替代文字"></p><h2 id="4-gt-配置爬虫项目，完成以后，再通过addversion-json进行打包。"><a href="#4-gt-配置爬虫项目，完成以后，再通过addversion-json进行打包。" class="headerlink" title="4&gt;配置爬虫项目，完成以后，再通过addversion.json进行打包。"></a>4&gt;配置爬虫项目，完成以后，再通过addversion.json进行打包。</h2><p><img src="/2018/09/27/bushupachong/图片3.png" alt="你想输入的替代文字"></p><p>修改scrapy.cfg文件：<br><img src="/2018/09/27/bushupachong/图片4.png" alt="你想输入的替代文字"></p><h2 id="5-gt-上述的scrapyd服务窗口cmd不要关闭，再新打开一个cmd窗口，用于使用scrapyd-client客户端连接scrapyd服务。"><a href="#5-gt-上述的scrapyd服务窗口cmd不要关闭，再新打开一个cmd窗口，用于使用scrapyd-client客户端连接scrapyd服务。" class="headerlink" title="5&gt;上述的scrapyd服务窗口cmd不要关闭，再新打开一个cmd窗口，用于使用scrapyd-client客户端连接scrapyd服务。"></a>5&gt;上述的scrapyd服务窗口cmd不要关闭，再新打开一个cmd窗口，用于使用scrapyd-client客户端连接scrapyd服务。</h2><h3 id="a-gt-进入项目根目录，然后输入scrapyd-deploy命令，查看scrapyd-client客户端命令能否正常使用；"><a href="#a-gt-进入项目根目录，然后输入scrapyd-deploy命令，查看scrapyd-client客户端命令能否正常使用；" class="headerlink" title="a&gt;进入项目根目录，然后输入scrapyd-deploy命令，查看scrapyd-client客户端命令能否正常使用；"></a>a&gt;进入项目根目录，然后输入scrapyd-deploy命令，查看scrapyd-client客户端命令能否正常使用；</h3><p><img src="/2018/09/27/bushupachong/图片5.png" alt="你想输入的替代文字"></p><h3 id="b-gt-查看当前可用于打包上传的爬虫项目；"><a href="#b-gt-查看当前可用于打包上传的爬虫项目；" class="headerlink" title="b&gt;查看当前可用于打包上传的爬虫项目；"></a>b&gt;查看当前可用于打包上传的爬虫项目；</h3><p><img src="/2018/09/27/bushupachong/图片6.png" alt="你想输入的替代文字"></p><h3 id="c-gt-使用scrapyd-deploy命令打包上传项目；"><a href="#c-gt-使用scrapyd-deploy命令打包上传项目；" class="headerlink" title="c&gt;使用scrapyd-deploy命令打包上传项目；"></a>c&gt;使用scrapyd-deploy命令打包上传项目；</h3><p>命令：Scrapyd-deploy  bole  -p  jobbolespider<br>参数：<br>Status: “ok”/”error” 项目上传状态<br>Project: 上传的项目名称<br>Version: 项目的版本号，值是时间戳<br>Spiders: 项目Project包含的爬虫个数<br><img src="/2018/09/27/bushupachong/图片7.png" alt="你想输入的替代文字"></p><h3 id="d-gt-通过API接口，查看已经上传至scrapyd服务的项目；"><a href="#d-gt-通过API接口，查看已经上传至scrapyd服务的项目；" class="headerlink" title="d&gt;通过API接口，查看已经上传至scrapyd服务的项目；"></a>d&gt;通过API接口，查看已经上传至scrapyd服务的项目；</h3><p>命令：curl  <a href="http://localhost:6800/listprojects.json" target="_blank" rel="noopener">http://localhost:6800/listprojects.json</a><br>键值：<br>Projects: [] 所有已经上传的爬虫项目，都会显示在这个列表中。<br><img src="/2018/09/27/bushupachong/图片8.png" alt="你想输入的替代文字"></p><h3 id="e-gt-通过API接口，查看某一个项目中的所有爬虫名称；"><a href="#e-gt-通过API接口，查看某一个项目中的所有爬虫名称；" class="headerlink" title="e&gt;通过API接口，查看某一个项目中的所有爬虫名称；"></a>e&gt;通过API接口，查看某一个项目中的所有爬虫名称；</h3><p>命令：curl  <a href="http://localhost:6800/listspiders.json?project=jobbolespider" target="_blank" rel="noopener">http://localhost:6800/listspiders.json?project=jobbolespider</a><br><img src="/2018/09/27/bushupachong/图片9.png" alt="你想输入的替代文字"></p><p>注意：如果项目上传失败，需要先将爬虫项目中打包生成的文件删除(build、project.egg-info、setup.py)，然后再重新打包上传。</p><h3 id="f-gt-通过API接口，启动爬虫项目；"><a href="#f-gt-通过API接口，启动爬虫项目；" class="headerlink" title="f&gt;通过API接口，启动爬虫项目；"></a>f&gt;通过API接口，启动爬虫项目；</h3><p>命令：curl <a href="http://localhost:6800/schedule.json" target="_blank" rel="noopener">http://localhost:6800/schedule.json</a> -d project=爬虫项目名称 -d  spider=项目中某一个爬虫名称<br>键值：<br>Jobid: 是根据项目(jobbolespider)和爬虫(bole)生成的一个id，将来用于取消爬虫任务。<br><img src="/2018/09/27/bushupachong/图片10.png" alt="你想输入的替代文字"></p><h3 id="g-gt-如果上传的项目无法运行，在本地调整代码以后，需要重新打包上传。将失效的项目删除。"><a href="#g-gt-如果上传的项目无法运行，在本地调整代码以后，需要重新打包上传。将失效的项目删除。" class="headerlink" title="g&gt;如果上传的项目无法运行，在本地调整代码以后，需要重新打包上传。将失效的项目删除。"></a>g&gt;如果上传的项目无法运行，在本地调整代码以后，需要重新打包上传。将失效的项目删除。</h3><p>命令：curl <a href="http://localhost:6800/delproject.json" target="_blank" rel="noopener">http://localhost:6800/delproject.json</a> -d project=jobbolespider<br><img src="/2018/09/27/bushupachong/图片11.png" alt="你想输入的替代文字"></p><h3 id="h-gt-通过API接口，取消爬虫任务；"><a href="#h-gt-通过API接口，取消爬虫任务；" class="headerlink" title="h&gt;通过API接口，取消爬虫任务；"></a>h&gt;通过API接口，取消爬虫任务；</h3><p>参数：<br>Jobid：启动爬虫的时候分配的<br><img src="/2018/09/27/bushupachong/图片12.png" alt="你想输入的替代文字"><br><img src="/2018/09/27/bushupachong/图片13.png" alt="你想输入的替代文字"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;它就相当于是一个服务器，用于将自己本地的爬虫代码，打包上传到服务器上，让这个爬虫在服务器上运行，可以实现对爬虫的远程管理。(远程启动爬虫，远程关闭爬虫，远程查看爬虫的一些日志。)&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="技术分享" scheme="http://www.gaoxiangxiang.cn/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分布式爬虫的配置</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/26/fenbushi/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/26/fenbushi/</id>
-    <published>2018-09-26T09:17:01.000Z</published>
-    <updated>2018-09-28T13:41:12.096Z</updated>
-    
-    <content type="html"><![CDATA[<p>分布式爬虫：</p><h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h2><pre><code>将同一个爬虫程序放在多台电脑上(或者同一个电脑中的多个虚拟机环境)，并且在多台电脑上同时启动这个爬虫。一个电脑运行一个爬虫程序称为单机爬虫。</code></pre><a id="more"></a><h2 id="2-作用"><a href="#2-作用" class="headerlink" title="## 2. 作用"></a>## 2. 作用</h2><pre><code>可以利用多台电脑的带宽，处理器等资源提高爬虫的爬取速度；</code></pre><h2 id="3-原理"><a href="#3-原理" class="headerlink" title="3. 原理"></a>3. 原理</h2><p>分布式需要解决的问题：(共用的队列Queue和共用的去重集合set()，这两个是scrapy自身无法解决的问题。只能通过第三方组件。)</p><h3 id="a-gt-需要保证多台电脑中的爬虫代码完全一致；"><a href="#a-gt-需要保证多台电脑中的爬虫代码完全一致；" class="headerlink" title="a&gt; 需要保证多台电脑中的爬虫代码完全一致；"></a>a&gt; 需要保证多台电脑中的爬虫代码完全一致；</h3><h3 id="b-gt-多台电脑操作同一个网站，如何管理url去重"><a href="#b-gt-多台电脑操作同一个网站，如何管理url去重" class="headerlink" title="b&gt; 多台电脑操作同一个网站，如何管理url去重?"></a>b&gt; 多台电脑操作同一个网站，如何管理url去重?</h3><h4 id="scrapy如何做去重的？"><a href="#scrapy如何做去重的？" class="headerlink" title="scrapy如何做去重的？"></a>scrapy如何做去重的？</h4><p>i&gt; scrapy会将所有的Request对象(request.url，request.method，request.body)进行加密，生成一个指纹对象fingerprint；</p><p>ii&gt; 然后将指纹对象放入set()集合中进行对比，如果set()集合中已经存在这个对象，那么scrapy就会将这个Request抛弃。如果set()集合中不存在这个指纹对象，就将这个Request添加到调度队列queue中，等待被调度器调度；</p><h3 id="c-gt-多台电脑就会有多个set-对象，能否使用各自的set-做去重？"><a href="#c-gt-多台电脑就会有多个set-对象，能否使用各自的set-做去重？" class="headerlink" title="c&gt; 多台电脑就会有多个set()对象，能否使用各自的set()做去重？"></a>c&gt; 多台电脑就会有多个set()对象，能否使用各自的set()做去重？</h3><p>不能。<br>i&gt; 这个set()对象中的数据都是保存在电脑内存中的，电脑的内存空间(运行内存)是不能共享的。</p><p>2&gt; 这个set()对象随着程序的启动而创建，程序的退出而销毁。<br>所以，要解决这个问题，需要让所有电脑共用同一个set()集合。不再使用scrapy内置的set()对象，而是使用scrapy-redis将这个set()集合在redis中创建，然后多台电脑访问同一个redis就可以实现set集合的共用。</p><h3 id="d-gt-用于存放合法Request请求对象的队列，"><a href="#d-gt-用于存放合法Request请求对象的队列，" class="headerlink" title="d&gt; 用于存放合法Request请求对象的队列，"></a>d&gt; 用于存放合法Request请求对象的队列，</h3><p>用于存放合法Request请求对象的队列，在scrapy中也是默认存在于内存中的，也是无法实现多台电脑的共享队列。如果是多台电脑的话，就需要保证多台电脑有共用的队列queue，这样可以保证所有电脑从同一个队列中获取Request对象进行调度，所有set()过滤出来的Request都放到同一个队列中。所以，要解决这个问题，需要让所有电脑共用同一个队列。不再使用scrapy内置的queue，而是使用scrapy-redis将这个queue在redis中创建，然后多台电脑访问同一个redis就可以实现queue的共用。</p><h3 id="e-gt-如何将不同电脑上获取的数据，保存在同一个数据库中。"><a href="#e-gt-如何将不同电脑上获取的数据，保存在同一个数据库中。" class="headerlink" title="e&gt; 如何将不同电脑上获取的数据，保存在同一个数据库中。"></a>e&gt; 如何将不同电脑上获取的数据，保存在同一个数据库中。</h3><h2 id="4-配置"><a href="#4-配置" class="headerlink" title="4. 配置"></a>4. 配置</h2><h3 id="a-gt-必须配置"><a href="#a-gt-必须配置" class="headerlink" title="a&gt; (必须配置)"></a>a&gt; (必须配置)</h3><pre><code># 配置scrapy-redis# Enables scheduling storing requests queue in redis.# 更换scrapy内置调度器文件，使用scrapy_redis包中的scheduler调度器文件。SCHEDULER = &quot;scrapy_redis.scheduler.Scheduler&quot;# Ensure all spiders share same duplicates filter through redis.# 更换scrapy内置的去重文件，使用scrapy_redis包中的dupefilter文件。DUPEFILTER_CLASS = &quot;scrapy_redis.dupefilter.RFPDupeFilter&quot;</code></pre><h3 id="b-gt-可选配置"><a href="#b-gt-可选配置" class="headerlink" title="b&gt; (可选配置)"></a>b&gt; (可选配置)</h3><pre><code>是否将解析出来的item数据，在redis中保存一份。如果需要保存，就配置这个pipeline。ITEM_PIPELINES = {    &apos;scrapy_redis.pipelines.RedisPipeline&apos;: 300}</code></pre><h3 id="c-gt-必须配置"><a href="#c-gt-必须配置" class="headerlink" title="c&gt; (必须配置)"></a>c&gt; (必须配置)</h3><pre><code># 配置REDIS_URL = &apos;(redis://redis数据库用户(默认是root):redis数据库连接密码(默认为空))@(redis的连接地址):(redis的端口号)&apos;# hostname： redis的链接地址，由于多台电脑要连接同一个redis数据库，所以，这个链接地址可以是其中一台电脑的IP地址。注意：这个IP地址对应的电脑必须启动redis服务，否则其他电脑无法链接这个IP对应的redis。# 如果是在阿里云上购买的redis数据库服务器，这个hostname就填写阿里云的redis服务器的公网IP。</code></pre><h4 id="REDIS-URL-‘redis-root-192-168-53-88-6379’"><a href="#REDIS-URL-‘redis-root-192-168-53-88-6379’" class="headerlink" title="REDIS_URL = ‘redis://root:@192.168.53.88:6379’"></a>REDIS_URL = ‘redis://root:@192.168.53.88:6379’</h4><h3 id="d-gt-必须配置"><a href="#d-gt-必须配置" class="headerlink" title="d&gt; (必须配置)"></a>d&gt; (必须配置)</h3><p>配置redis服务，默认redis只支持localhost的本地连接，不允许远程连接，需要配置redis服务，开启远程连接功能。去本地安装包，找到redis.windows.conf文件:<br>    1&gt; 将protected-mode yes这个保护模式关闭，设置为no;<br>    2&gt; 将bind 127.0.0.1修改成REDIS_URL中设置的IP地址(192.168.53.88);</p><p>在修改redis.windows.conf配置文件以后，必须将 “Redis” 服务从计算机-管理中删除，然后重新根据修改后redis.windows.conf配置文件进行注册新的服务，这样修改的配置文件才生效。</p><p>删除服务:  sc detele Redis</p><p>启用服务:  redis-server.exe –service-install redis.windows.conf –loglevel verbose </p><p>注意：分布式爬虫程序中设置的所有的KEY，都是”xxx:xxx”结构，对应的是容器的名称(类似于MySQL中的表名)，并不是容器内容中key:value的这个key。</p><h3 id="e-gt-必须配置"><a href="#e-gt-必须配置" class="headerlink" title="e&gt; (必须配置)"></a>e&gt; (必须配置)</h3><pre><code>from ..scrapy_redis.spiders import RedisSpiderclass BoleSpider(RedisSpider):    name = &apos;bole&apos;    allowed_domains = [&apos;jobbole.com&apos;]    # start_urls = [&apos;http://blog.jobbole.com/all-posts/&apos;]    # 分布式就不需要再设置起始的url，需要通过redis进行添加起始的url。起始的url添加到哪去了？被添加到了公共队列queue中。让多台机器中的其中一台从公共的reids队列queue中，获取起始的url，并对这个起始的url进行请求和解析，获取更多的url，然后将所有的url构造成Request，还放入公共队列queue中，让其他机器获取这些Request请求。    redis_key = &apos;jobbole:start_urls&apos;</code></pre><h3 id="f-gt-向redis-key-‘jobbole-start-urls’这个键中，添加起始url"><a href="#f-gt-向redis-key-‘jobbole-start-urls’这个键中，添加起始url" class="headerlink" title="f&gt; 向redis_key = ‘jobbole:start_urls’这个键中，添加起始url."></a>f&gt; 向redis_key = ‘jobbole:start_urls’这个键中，添加起始url.</h3><pre><code>    lpush jobbole:start_urls http://blog.jobbole.com/all-posts/### g&gt; 修改MySQL数据库为远程连接，让所有电脑连接同一个数据库，爬取出来的数据都保存在同一个数据库的表中。默认情况下，MySQL分配的root用户只允许本地连接localhost，如果需要通过IP建立数据库的连接，需要创建一个具有远程连接权限的用户：创建一个名称为 &quot;user&quot; 的用户，%表示该用户可以使用任意IP进行连接，identified by是设置密码。create user &quot;user&quot;@&quot;%&quot; identified by &quot;123456&quot;;给名称为 &quot;user&quot; 的用户分配所有数据库的读写权限，*.*表示user可以对任意数据库都有操作权限。GRANT ALL privileges ON *.* TO &apos;user&apos;@&apos;%&apos;;</code></pre><p>可以参考: <a href="https://blog.csdn.net/weixin_42336579/article/details/81088040" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42336579/article/details/81088040</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;分布式爬虫：&lt;/p&gt;
-&lt;h2 id=&quot;1-概念&quot;&gt;&lt;a href=&quot;#1-概念&quot; class=&quot;headerlink&quot; title=&quot;1. 概念&quot;&gt;&lt;/a&gt;1. 概念&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;将同一个爬虫程序放在多台电脑上(或者同一个电脑中的多个虚拟机环境)，并且在多台电脑上同时启动这个爬虫。一个电脑运行一个爬虫程序称为单机爬虫。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-    
-      <category term="技术分享" scheme="http://www.gaoxiangxiang.cn/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Scrapy搭建爬虫项目</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/13/scrapydajianxiangmu/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/13/scrapydajianxiangmu/</id>
-    <published>2018-09-13T01:07:16.000Z</published>
-    <updated>2018-09-26T10:59:42.477Z</updated>
-    
-    <content type="html"><![CDATA[<p>1.输入workon命令，进入已经设置好的一个虚拟环境。</p><p>2.安装scrapy框架:pip install scrapy</p><a id="more"></a><p>3.遇到如下报错信息，进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy" target="_blank" rel="noopener">https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy</a> 下载Twisted库的wheel文件<img src="/2018/09/13/scrapydajianxiangmu/图片1.png" alt="你想输入的替代文字"></p><p>4.安装Twisted</p><p>5.执行scrapy startproject 项目名称<br><img src="/2018/09/13/scrapydajianxiangmu/图片2.png" alt="你想输入的替代文字"></p><p>5.using template director：是scrapy内置的一个框架模板<br><img src="/2018/09/13/scrapydajianxiangmu/图片3.png" alt="你想输入的替代文字"></p><p>6.进入到项目文件夹中<br><img src="/2018/09/13/scrapydajianxiangmu/图片4.png" alt="你想输入的替代文字"></p><p>7.爬虫项目文件介绍<br><img src="/2018/09/13/scrapydajianxiangmu/图片5.png" alt="你想输入的替代文字"></p><p>8.通过cmd爬虫项目<br>命令：scrapy  crawl  baidu(爬虫名称)</p><p>9.执行以上命令会报错<br><img src="/2018/09/13/scrapydajianxiangmu/图片6.png" alt="你想输入的替代文字"><br>只需要安装pip install pypiwin32即可解决<br>然后再执行命令：：scrapy  crawl  baidu(爬虫名称)</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;1.输入workon命令，进入已经设置好的一个虚拟环境。&lt;/p&gt;
-&lt;p&gt;2.安装scrapy框架:pip install scrapy&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="学习心得" scheme="http://www.gaoxiangxiang.cn/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python虚拟环境的安装和配置(windows)</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/12/xunihuanjing/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/12/xunihuanjing/</id>
-    <published>2018-09-12T14:46:37.000Z</published>
-    <updated>2018-09-13T00:54:50.165Z</updated>
-    
-    <content type="html"><![CDATA[<p class="description"></p><a id="more"></a><h1 id="1-下载virtualenvwrapper-win-包"><a href="#1-下载virtualenvwrapper-win-包" class="headerlink" title="1.下载virtualenvwrapper-win 包"></a>1.下载virtualenvwrapper-win 包</h1><p>在黑窗中输入pip install virtualenvwrapper-win<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">C:</span>\Users\Administrator&gt;pip install virtualenvwrapper-win</span><br><span class="line">Requirement already <span class="symbol">satisfied:</span> virtualenvwrapper-win in <span class="symbol">c:</span>\programdata\anaconda3\<span class="class"><span class="keyword">lib</span>\<span class="title">site</span>-<span class="title">packages</span> (1.2.5)</span></span><br><span class="line">Requirement already <span class="symbol">satisfied:</span> virtualenv in <span class="symbol">c:</span>\programdata\anaconda3\<span class="class"><span class="keyword">lib</span>\<span class="title">site</span>-<span class="title">packages</span> (<span class="title">from</span> <span class="title">virtualenvwrapper</span>-<span class="title">win</span>) (16.0.0)</span></span><br></pre></td></tr></table></figure></p><h1 id="2-输入workon命令查看是否可用"><a href="#2-输入workon命令查看是否可用" class="headerlink" title="2.输入workon命令查看是否可用"></a>2.输入workon命令查看是否可用</h1><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pass a name to activate one of the following virtualenvs:</span><br><span class="line">==============================================================================</span><br><span class="line">找不到文件</span><br></pre></td></tr></table></figure><h1 id="3-使用virtualenvwrapper创建虚拟环境"><a href="#3-使用virtualenvwrapper创建虚拟环境" class="headerlink" title="3.使用virtualenvwrapper创建虚拟环境"></a>3.使用virtualenvwrapper创建虚拟环境</h1><p>在黑窗中输入mkvirtualenv py3scrapy  (py3scrapy为虚拟环境名)<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:<span class="symbol">\U</span>sers<span class="symbol">\A</span>dministrator&gt;mkvirtualenv py4scrapy</span><br><span class="line">Using base prefix 'c:<span class="symbol">\\</span>programdata<span class="symbol">\\</span>anaconda3'</span><br><span class="line">New python executable in D:<span class="symbol">\E</span>nvs<span class="symbol">\p</span>y4scrapy<span class="symbol">\S</span>cripts<span class="symbol">\p</span>ython.exe</span><br><span class="line">Installing setuptools, pip, wheel...done.</span><br></pre></td></tr></table></figure></p><p>默认放在C:\Users\Administrator\Envs目录中<br>可以修改存放的路径：<br>找到系统环境变量，编辑系统变量,添加WORKON_HOME为变量名,D:\ENVS为变量值<br>运行workon，目录中没有虚拟环境了，因为默认目录已经改变，可以将之前的虚拟环境拷贝到新目录下</p><p>新建一个虚拟环境，完成后自动进入该虚拟环境</p><p>以后再进入虚拟环境，就不需要记住安装路径了直接使用以下命令：<br>列出虚拟环境列表：workon<br>新建虚拟环境：mkvirtualenv [虚拟环境名称]<br>启动/切换虚拟环境：workon [虚拟环境名称]<br>离开虚拟环境：deactivate</p><hr>]]></content>
-    
-    <summary type="html">
-    
-      “虚拟环境” 来源于 ShadoWin 虚拟软件所实现的功能。ShadoWin 的工作原理是以专利的实时动态程序行为修饰与模拟算法，直接利用本机的 OS，模拟出自带与本机相容 OS 的虚拟机（Vista 下可模拟 Vista、XP，Windows 7 下则可模拟 Windows 7、Vista、XP），也称为 “虚拟环境”。
-    
-    </summary>
-    
-    
-      <category term="学习心得" scheme="http://www.gaoxiangxiang.cn/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>proxy_pool</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/12/proxy-pool/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/12/proxy-pool/</id>
-    <published>2018-09-12T06:14:35.000Z</published>
-    <updated>2018-09-12T06:52:38.967Z</updated>
-    
-    <content type="html"><![CDATA[<p class="description"></p><a id="more"></a><h2 id="代理IP"><a href="#代理IP" class="headerlink" title="代理IP:"></a>代理IP:</h2><p>1.免费的代理IP,可用IP少,时效性较短,大部分的代理IP可能.<br>2.收费的代理IP,讯代理.<br>3.爬取国外的网站,VPN代理服务器.</p><h2 id="pxory-pool"><a href="#pxory-pool" class="headerlink" title="pxory_pool:"></a>pxory_pool:</h2><p>1.它将国内的代理IP网站都进行了爬取;<br>2.代理IP爬取完毕之后,会进行金策,可用的IP会保存到数据库redis中;<br>3.会定期将数据库中的代理IP拿出来检测,失效的IP从数据库中删除;<br>4.支持扩展</p><p>附上proxy_pool的github链接:<a href="https://github.com/jhao104/proxy_pool" target="_blank" rel="noopener">https://github.com/jhao104/proxy_pool</a></p><hr>]]></content>
-    
-    <summary type="html">
-    
-      代理服务器（ProxyServer）是一种重要的服务器安全功能，它的工作主要在开放系统互联 (OSI) 模型的会话层，从而起到防火墙的作用。代理服务器大多被用来连接INTERNET（国际互联网）和 Local Area Network（局域网）。
-    
-    </summary>
-    
-    
-      <category term="代理" scheme="http://www.gaoxiangxiang.cn/tags/%E4%BB%A3%E7%90%86/"/>
-    
-  </entry>
   
   <entry>
     <title>装了Chorme不用这个扩展,还不如去用IE6</title>
@@ -176,26 +33,6 @@
     
     
       <category term="福利专区" scheme="http://www.gaoxiangxiang.cn/tags/%E7%A6%8F%E5%88%A9%E4%B8%93%E5%8C%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>scrapy框架自定义pipeline</title>
-    <link href="http://www.gaoxiangxiang.cn/2018/09/04/test1/"/>
-    <id>http://www.gaoxiangxiang.cn/2018/09/04/test1/</id>
-    <published>2018-09-04T03:31:01.000Z</published>
-    <updated>2018-09-12T11:10:41.628Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="自定义pipeline"><a href="#自定义pipeline" class="headerlink" title="自定义pipeline"></a>自定义pipeline</h2><p>首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.</p><a id="more"></a><h2 id="演示保存为csv"><a href="#演示保存为csv" class="headerlink" title="演示保存为csv"></a>演示保存为csv</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NovelSpiderCsvPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(<span class="keyword">self</span>,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.f=open(<span class="string">'novel,csv'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>,newline=<span class="string">''</span>)</span><br><span class="line">            <span class="keyword">self</span>.writer=csv.DictWriter(<span class="keyword">self</span>.f,fieldnames=[<span class="string">"novel_name"</span>,<span class="string">"novel_info"</span>,<span class="string">"novel_type"</span>,<span class="string">"novel_author"</span>])</span><br><span class="line">            <span class="keyword">self</span>.writer.writeheader()</span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>,item,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            item_dict=dict(item)</span><br><span class="line">            <span class="keyword">self</span>.writer.writerow(item_dict)</span><br><span class="line">            <span class="keyword">return</span> item</span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(<span class="keyword">self</span>,spider)</span></span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.f.close()</span><br></pre></td></tr></table></figure><p>然后在pipeline写好代码之后,不是就完成了,还有一些步骤要做.自定义的pipeline必须在settings中的ITEM_PIPELINES里面启用,否则该pipeline不会生效<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ITEM_PIPELINES</span> = &#123;<span class="string">'NovelSpider.pipelines.NovelSpiderCsvPipeline'</span>: <span class="number">301</span>&#125;</span><br></pre></td></tr></table></figure></p><p>最后运行就可以了</p><hr>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;自定义pipeline&quot;&gt;&lt;a href=&quot;#自定义pipeline&quot; class=&quot;headerlink&quot; title=&quot;自定义pipeline&quot;&gt;&lt;/a&gt;自定义pipeline&lt;/h2&gt;&lt;p&gt;首先,需要我们在pipeline.py文件中自定义.需要注意的是自定义的每一个pipeline必须是一个独立的Python类,也就是继承于object.就可以定义pipeline类,定义自己想要使用的储存方法.&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="学习心得" scheme="http://www.gaoxiangxiang.cn/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
     
   </entry>
   
