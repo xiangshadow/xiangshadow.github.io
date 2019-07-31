@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[布隆去重]]></title>
+    <url>%2F2018%2F09%2F28%2Fbulongquchong%2F</url>
+    <content type="text"><![CDATA[布隆去重：应用场景：针对分布式包scrapy_redis使用，一般scarpy框架直接使用内置的去重机制，不建议修改scrapy源码配置布隆去重。 作用：针对大量的url，可以提升url的去重量。并且占用很少的内存空间。set()内存创建。 爬虫去重方案：1. 利用数据库去重利用数据库去重；(数据量少的爬虫程序)，每爬取一个Url地址，都将这个url地址在数据库中保存一份，然后在获取新的url地址时，先查询一下数据库中是否已经存在这个url，如果已经存在直接跳过这个url，继续解析下一个url。这种去重方案每次都要读写数据库(每次都要和本地磁盘进行交互，这种效率相对来说(内存)是较低的。)100000000(亿) 2bytes50个字符/1024(KB)/1024(MB)/1024(GB) = 9(GB) 2. 使用内存去重使用内存去重；可以大大降低内存和磁盘的交互次数，提高去重的效率。如果数据量太大，会占用过多的内存空间。如果使用内存进行去重的话，肯定是需要对数据进行加密，加密之后数据的长度会更少，进而占用更少的内存空间。一般加密方法不管原始数据是多长，加密之后的长度都是固定的。scrapy使用的就是内存去重，而且对原始数据进行hash加密。hash加密比md5/base64加密后的数据长度更少，一般hash加密是按照 “位 来计算内存的。如果使用md5加密可能会占用3GB的内存空间，但是hash加密大概在2GB的内存。 ###3. 采用布隆去重采用布隆去重，也是内存去重，程序直接从内存中读取数据，比从磁盘中读取数据要快的多。100000000(亿) * 1bit/8bytes/1024(KB)/1024(MB)/1024(GB) = 0.0116(GB) = 12MB 布隆去重的配置： 去Github上下载布隆去重的包；https://github.com/liyaopinner/BloomFilter_imooc 将这个包放在scrapy_redis这个分布式的包中； 使用布隆去重的代码，替换scrapy_redis中的代码；]]></content>
+      <tags>
+        <tag>学习心得</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Gerapy分布式爬虫管理框架]]></title>
+    <url>%2F2018%2F09%2F28%2Ffenbukuangjia%2F</url>
+    <content type="text"><![CDATA[一、介绍：Gerapy 是一款分布式爬虫管理框架，支持 Python 3，基于 Scrapy、Scrapyd、Scrapyd-Client、Scrapy-Redis、Scrapyd-API、Scrapy-Splash、Jinjia2、Django、Vue.js 开发。 二、gerapy的初始化配置：1.安装gerapy框架。$ pip install gerapy 2.检查gerapy是否可用。$ gerapy 3.初始化gerapy，生成gerapy框架的工作目录。(在哪初始化，工作目录就创建在哪。初始化完成，进入gerapy文件夹，会有一个projects文件夹。)$ gerapy init 4.先进入gerapy目录，再执行gerapy数据库的初始化，建立相关的数据库表。$ cd gerapy$ gerapy migrate 5.在gerapy目录下，启动gerapy服务，默认在8000端口。$ gerapy runserver 6.打开浏览器，输入：http://localhost:8000，可以看到 Gerapy 的主界面。 7.完成以上步骤，说明gerapy初始化成功了。但是现在还没有添加主机和项目，所有的主机数量和项目数量都是0。三、配置gerapy的主机1. 点击左侧 Clients 选项卡，即主机管理页面，添加我们的 Scrapyd 远程服务，点击右上角的创建按钮即可添加我们需要管理的 Scrapyd 服务。 2.在cmd中，开启scrapyd服务。(如果scrapyd在远程服务器上已经部署成功了，那么是不需要再次进行开启的。一般远程服务器上的scrapyd会一直保持运行状态。)3.再次刷新主机管理，scrapyd的连接状态变成normal即可。 四、在gerapy中部署爬虫项目1. 点击左侧的 Projects ，即项目管理选项。 2.将自己的爬虫项目，拷贝到gerapy目录下的projects目录下。 3.刷新浏览器页面，我们便可以看到 Gerapy 检测到了这个项目。 4.点击部署按钮进行打包和部署，在右下角我们可以输入打包时的描述信息，类似于 Git 的 commit 信息，然后点击打包按钮，即可发现 Gerapy 会提示打包成功，同时在左侧显示打包的结果和打包名称。 5.开始打包。 6.打包完成以后，开始将爬虫项目部署到scrapyd服务上。 五、开始调度爬虫，检测爬虫的运行状态。1.部署完毕之后就可以回到 “主机管理”页面进行任务调度。 2.选择要运行的爬虫项目。 3.查看运行结果。]]></content>
+      <tags>
+        <tag>技术分享</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[scrapyd部署爬虫项目]]></title>
+    <url>%2F2018%2F09%2F27%2Fbushupachong%2F</url>
+    <content type="text"><![CDATA[它就相当于是一个服务器，用于将自己本地的爬虫代码，打包上传到服务器上，让这个爬虫在服务器上运行，可以实现对爬虫的远程管理。(远程启动爬虫，远程关闭爬虫，远程查看爬虫的一些日志。) 1.Scrapd的安装。Pip install scrapyd 2.如何将本地的爬虫项目Deploying(打包)，上传至scrapyd这个服务中。a&gt;scrapyd提供了一个客户端工具，就是scrapyd-client，使用这个工具对scrapyd这个服务进行操作，比如：向scrapyd服务打包上传项目。scrapyd-client类似于redis-cli.exe、mongodb数据库的client。scrapyd-client下载地址：https://github.com/scrapy/scrapyd-client b&gt;Pip install scrapyd-client==1.2.0a1 注意：服务端scrapyd(==1.2)和客户端scrapyd-client(==1.1)安装的版本一定要保持一致。 3.上述服务和客户端安装好之后，可以启动scrapyd这个服务了，服务启动之后，不要关闭。 访问127.0.0.1:6800,出现以下页面表示成功启动scrapyd服务： 4&gt;配置爬虫项目，完成以后，再通过addversion.json进行打包。 修改scrapy.cfg文件： 5&gt;上述的scrapyd服务窗口cmd不要关闭，再新打开一个cmd窗口，用于使用scrapyd-client客户端连接scrapyd服务。a&gt;进入项目根目录，然后输入scrapyd-deploy命令，查看scrapyd-client客户端命令能否正常使用； b&gt;查看当前可用于打包上传的爬虫项目； c&gt;使用scrapyd-deploy命令打包上传项目；命令：Scrapyd-deploy bole -p jobbolespider参数：Status: “ok”/”error” 项目上传状态Project: 上传的项目名称Version: 项目的版本号，值是时间戳Spiders: 项目Project包含的爬虫个数 d&gt;通过API接口，查看已经上传至scrapyd服务的项目；命令：curl http://localhost:6800/listprojects.json键值：Projects: [] 所有已经上传的爬虫项目，都会显示在这个列表中。 e&gt;通过API接口，查看某一个项目中的所有爬虫名称；命令：curl http://localhost:6800/listspiders.json?project=jobbolespider 注意：如果项目上传失败，需要先将爬虫项目中打包生成的文件删除(build、project.egg-info、setup.py)，然后再重新打包上传。 f&gt;通过API接口，启动爬虫项目；命令：curl http://localhost:6800/schedule.json -d project=爬虫项目名称 -d spider=项目中某一个爬虫名称键值：Jobid: 是根据项目(jobbolespider)和爬虫(bole)生成的一个id，将来用于取消爬虫任务。 g&gt;如果上传的项目无法运行，在本地调整代码以后，需要重新打包上传。将失效的项目删除。命令：curl http://localhost:6800/delproject.json -d project=jobbolespider h&gt;通过API接口，取消爬虫任务；参数：Jobid：启动爬虫的时候分配的]]></content>
+      <tags>
+        <tag>技术分享</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[分布式爬虫的配置]]></title>
+    <url>%2F2018%2F09%2F26%2Ffenbushi%2F</url>
+    <content type="text"><![CDATA[分布式爬虫： 1. 概念将同一个爬虫程序放在多台电脑上(或者同一个电脑中的多个虚拟机环境)，并且在多台电脑上同时启动这个爬虫。一个电脑运行一个爬虫程序称为单机爬虫。 ## 2. 作用可以利用多台电脑的带宽，处理器等资源提高爬虫的爬取速度； 3. 原理分布式需要解决的问题：(共用的队列Queue和共用的去重集合set()，这两个是scrapy自身无法解决的问题。只能通过第三方组件。) a&gt; 需要保证多台电脑中的爬虫代码完全一致；b&gt; 多台电脑操作同一个网站，如何管理url去重?scrapy如何做去重的？i&gt; scrapy会将所有的Request对象(request.url，request.method，request.body)进行加密，生成一个指纹对象fingerprint； ii&gt; 然后将指纹对象放入set()集合中进行对比，如果set()集合中已经存在这个对象，那么scrapy就会将这个Request抛弃。如果set()集合中不存在这个指纹对象，就将这个Request添加到调度队列queue中，等待被调度器调度； c&gt; 多台电脑就会有多个set()对象，能否使用各自的set()做去重？不能。i&gt; 这个set()对象中的数据都是保存在电脑内存中的，电脑的内存空间(运行内存)是不能共享的。 2&gt; 这个set()对象随着程序的启动而创建，程序的退出而销毁。所以，要解决这个问题，需要让所有电脑共用同一个set()集合。不再使用scrapy内置的set()对象，而是使用scrapy-redis将这个set()集合在redis中创建，然后多台电脑访问同一个redis就可以实现set集合的共用。 d&gt; 用于存放合法Request请求对象的队列，用于存放合法Request请求对象的队列，在scrapy中也是默认存在于内存中的，也是无法实现多台电脑的共享队列。如果是多台电脑的话，就需要保证多台电脑有共用的队列queue，这样可以保证所有电脑从同一个队列中获取Request对象进行调度，所有set()过滤出来的Request都放到同一个队列中。所以，要解决这个问题，需要让所有电脑共用同一个队列。不再使用scrapy内置的queue，而是使用scrapy-redis将这个queue在redis中创建，然后多台电脑访问同一个redis就可以实现queue的共用。 e&gt; 如何将不同电脑上获取的数据，保存在同一个数据库中。4. 配置a&gt; (必须配置)# 配置scrapy-redis # Enables scheduling storing requests queue in redis. # 更换scrapy内置调度器文件，使用scrapy_redis包中的scheduler调度器文件。 SCHEDULER = &quot;scrapy_redis.scheduler.Scheduler&quot; # Ensure all spiders share same duplicates filter through redis. # 更换scrapy内置的去重文件，使用scrapy_redis包中的dupefilter文件。 DUPEFILTER_CLASS = &quot;scrapy_redis.dupefilter.RFPDupeFilter&quot; b&gt; (可选配置)是否将解析出来的item数据，在redis中保存一份。如果需要保存，就配置这个pipeline。 ITEM_PIPELINES = { &apos;scrapy_redis.pipelines.RedisPipeline&apos;: 300 } c&gt; (必须配置)# 配置REDIS_URL = &apos;(redis://redis数据库用户(默认是root):redis数据库连接密码(默认为空))@(redis的连接地址):(redis的端口号)&apos; # hostname： redis的链接地址，由于多台电脑要连接同一个redis数据库，所以，这个链接地址可以是其中一台电脑的IP地址。注意：这个IP地址对应的电脑必须启动redis服务，否则其他电脑无法链接这个IP对应的redis。 # 如果是在阿里云上购买的redis数据库服务器，这个hostname就填写阿里云的redis服务器的公网IP。 REDIS_URL = ‘redis://root:@192.168.53.88:6379’d&gt; (必须配置)配置redis服务，默认redis只支持localhost的本地连接，不允许远程连接，需要配置redis服务，开启远程连接功能。去本地安装包，找到redis.windows.conf文件: 1&gt; 将protected-mode yes这个保护模式关闭，设置为no; 2&gt; 将bind 127.0.0.1修改成REDIS_URL中设置的IP地址(192.168.53.88); 在修改redis.windows.conf配置文件以后，必须将 “Redis” 服务从计算机-管理中删除，然后重新根据修改后redis.windows.conf配置文件进行注册新的服务，这样修改的配置文件才生效。 删除服务: sc detele Redis 启用服务: redis-server.exe –service-install redis.windows.conf –loglevel verbose 注意：分布式爬虫程序中设置的所有的KEY，都是”xxx:xxx”结构，对应的是容器的名称(类似于MySQL中的表名)，并不是容器内容中key:value的这个key。 e&gt; (必须配置)from ..scrapy_redis.spiders import RedisSpider class BoleSpider(RedisSpider): name = &apos;bole&apos; allowed_domains = [&apos;jobbole.com&apos;] # start_urls = [&apos;http://blog.jobbole.com/all-posts/&apos;] # 分布式就不需要再设置起始的url，需要通过redis进行添加起始的url。起始的url添加到哪去了？被添加到了公共队列queue中。让多台机器中的其中一台从公共的reids队列queue中，获取起始的url，并对这个起始的url进行请求和解析，获取更多的url，然后将所有的url构造成Request，还放入公共队列queue中，让其他机器获取这些Request请求。 redis_key = &apos;jobbole:start_urls&apos; f&gt; 向redis_key = ‘jobbole:start_urls’这个键中，添加起始url. lpush jobbole:start_urls http://blog.jobbole.com/all-posts/ ### g&gt; 修改MySQL数据库为远程连接，让所有电脑连接同一个数据库，爬取出来的数据都保存在同一个数据库的表中。 默认情况下，MySQL分配的root用户只允许本地连接localhost，如果需要通过IP建立数据库的连接，需要创建一个具有远程连接权限的用户： 创建一个名称为 &quot;user&quot; 的用户，%表示该用户可以使用任意IP进行连接，identified by是设置密码。 create user &quot;user&quot;@&quot;%&quot; identified by &quot;123456&quot;; 给名称为 &quot;user&quot; 的用户分配所有数据库的读写权限，*.*表示user可以对任意数据库都有操作权限。 GRANT ALL privileges ON *.* TO &apos;user&apos;@&apos;%&apos;; 可以参考: https://blog.csdn.net/weixin_42336579/article/details/81088040]]></content>
+      <tags>
+        <tag>技术分享</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Scrapy搭建爬虫项目]]></title>
+    <url>%2F2018%2F09%2F13%2Fscrapydajianxiangmu%2F</url>
+    <content type="text"><![CDATA[1.输入workon命令，进入已经设置好的一个虚拟环境。 2.安装scrapy框架:pip install scrapy 3.遇到如下报错信息，进入https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy 下载Twisted库的wheel文件 4.安装Twisted 5.执行scrapy startproject 项目名称 5.using template director：是scrapy内置的一个框架模板 6.进入到项目文件夹中 7.爬虫项目文件介绍 8.通过cmd爬虫项目命令：scrapy crawl baidu(爬虫名称) 9.执行以上命令会报错只需要安装pip install pypiwin32即可解决然后再执行命令：：scrapy crawl baidu(爬虫名称)]]></content>
+      <tags>
+        <tag>学习心得</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python虚拟环境的安装和配置(windows)]]></title>
+    <url>%2F2018%2F09%2F12%2Fxunihuanjing%2F</url>
+    <content type="text"><![CDATA[1.下载virtualenvwrapper-win 包在黑窗中输入pip install virtualenvwrapper-win123C:\Users\Administrator&gt;pip install virtualenvwrapper-winRequirement already satisfied: virtualenvwrapper-win in c:\programdata\anaconda3\lib\site-packages (1.2.5)Requirement already satisfied: virtualenv in c:\programdata\anaconda3\lib\site-packages (from virtualenvwrapper-win) (16.0.0) 2.输入workon命令查看是否可用123Pass a name to activate one of the following virtualenvs:==============================================================================找不到文件 3.使用virtualenvwrapper创建虚拟环境在黑窗中输入mkvirtualenv py3scrapy (py3scrapy为虚拟环境名)1234C:\Users\Administrator&gt;mkvirtualenv py4scrapyUsing base prefix 'c:\\programdata\\anaconda3'New python executable in D:\Envs\py4scrapy\Scripts\python.exeInstalling setuptools, pip, wheel...done. 默认放在C:\Users\Administrator\Envs目录中可以修改存放的路径：找到系统环境变量，编辑系统变量,添加WORKON_HOME为变量名,D:\ENVS为变量值运行workon，目录中没有虚拟环境了，因为默认目录已经改变，可以将之前的虚拟环境拷贝到新目录下 新建一个虚拟环境，完成后自动进入该虚拟环境 以后再进入虚拟环境，就不需要记住安装路径了直接使用以下命令：列出虚拟环境列表：workon新建虚拟环境：mkvirtualenv [虚拟环境名称]启动/切换虚拟环境：workon [虚拟环境名称]离开虚拟环境：deactivate]]></content>
+      <tags>
+        <tag>学习心得</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[proxy_pool]]></title>
+    <url>%2F2018%2F09%2F12%2Fproxy-pool%2F</url>
+    <content type="text"><![CDATA[代理IP:1.免费的代理IP,可用IP少,时效性较短,大部分的代理IP可能.2.收费的代理IP,讯代理.3.爬取国外的网站,VPN代理服务器. pxory_pool:1.它将国内的代理IP网站都进行了爬取;2.代理IP爬取完毕之后,会进行金策,可用的IP会保存到数据库redis中;3.会定期将数据库中的代理IP拿出来检测,失效的IP从数据库中删除;4.支持扩展 附上proxy_pool的github链接:https://github.com/jhao104/proxy_pool]]></content>
+      <tags>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[装了Chorme不用这个扩展,还不如去用IE6]]></title>
     <url>%2F2018%2F09%2F06%2Fa%2F</url>
     <content type="text"><![CDATA[这年头神器这个词已经烂大街了，但是，油猴的确配得上这个词，如果让我选择 Chrome 浏览器上只能保留一个扩展，那必须是油猴插件！这是一个可以提升上网幸福感的神级工具！说的这么邪乎？那我来告诉你这只油猴子都能干些什么吧。简单粗暴，直接上图！………..好吧,因为没有备案,所以图床还不能用…那就简单来讲讲吧,大致来说能干的事情非常的多,比如能看VIP视频、能下知网论文、磁链在线看、网盘免输密……等等,还有很多你想不到的功能.这么逆天的神器到底是个什么东西？它其实是一个脚本管理器，可以为你的浏览器加载各种各样有趣、实用、脑洞大开的脚本，对你正在访问的指定网站按照你的需求进行修改，从而让你的浏览器前所未有地强大。这款插件除了适用于 Chrome ,还支持 Microsoft Edge，Safari，Opera ，Firefox，以及使用 Chromium 内核的国产浏览器（比如QQ、猎豹、360、百度等），在 http://tampermonkey.net 这里你可以找到对应的油猴版本下载。我个人比较喜欢用Chrome,所以就以Chrome 为例讲解啦。 先安装油猴插件，最新版本号是4.4—— 1、可以科学上网的同学建议在线安装，去谷歌商店搜索 Tampermonkey 下载安装。 2、如果没有科学上网的条件，可以去 www.crx4chrome.com/crx/755/ 下载到本地，然后离线安装。顺便提一句，crx4chrome 这个站可以无需科学上网就能下载到最新版本的 Chrome 扩展，建议收藏。 安装成功之后，你会在 Chrome 的扩展栏看到一个黑色图标，证明油猴已经安装成功。 安装就这么简单，那这时候是不是就可以使用上边的那些神奇功能呢？ 还不行，安装好油猴插件相当于你手里有了一把枪，还要有子弹才能发挥枪的威力。 再送你一个丰富的弹药库，https://greasyfork.org/zh-CN/scripts，长枪短炮，应有尽有，刚才那些功能强大的脚本都来自于这个网站。 油猴上好玩好用的脚本实在是太多了，大家可以去自己慢慢淘，总有一款适合自己.]]></content>
